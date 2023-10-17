@@ -22,16 +22,30 @@
 <!-- 이메일 주소 -->
 <fieldset>
         <div class="form-group">
+          <div id="mail_input" name="mail_input">
           <label for="memberEmail" class="form-label mt-4">Email</label>
           <input type="email" class="form-control" name="memberEmail" id="memberEmail" aria-describedby="emailHelp"
             placeholder="사용가능한 이메일을 입력해주세요.">
-            <p><input type="button" id="check_button" value="중복 검사" class="btn btn-success" style="float: right; margin-top:28px;"
+            
+            <input type="button" id="sendBtn" name="sendBtn" value="인증받기" onclick="sendNumber()" class="btn btn-outline-success btn-sm" style="width:100%; margin-top:28px;">
+          </div>
+            <div id="mail_number" name="mail_number" style="display: none">
+              <input type="text" name="number" id="number" placeholder="인증번호 입력"  >
+
+              <p><input type="button" name="confirmBtn" id="confirmBtn" class="btn btn-outline-success btn-sm" style="float: right; margin-top:28px;"
+              value="이메일 인증" onclick="confirmNumber()"></p>
+
+              <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+
+              </div>
+            <p><input type="button" id="check_button" value="중복 검사" class="btn btn-outline-success btn-sm" style="width:100%; margin-top:28px;"
               onclick="checkusername();"></p>
           </div>
 </fieldset>
+
 <!--이메일 유효성 검사 -->
 
-<div class="Emailsuccess-message hide">초록: 사용가능한 이메일입니다.</div>
+<div class="Emailsuccess-message hide">초록: 사용가능한 이메일 입니다.</div>
 <div class="Emailsuccess-message2 hide">노랑: 이미 사용중인 이메일 입니다.</div>
 <div class="fail-emailmessage hide">올바르지 않은 이메일 형식입니다.</div>
 
@@ -44,7 +58,7 @@
           </div>
 </fieldset>
 <!--비밀번호 유효성 검사-->
-          <div class="success-pwdmessage hide">사용할 수 있는 비밀번호입니다</div>
+          <div class="success-pwdmessage hide">사용할 수 있는 비밀번호 입니다.</div>
           <div class="strongPassword-message hide">비밀번호 영문자+숫자+특수조합 (8~25자리 입력)</div>
 
 <!-- 비밀번호 확인-->
@@ -66,14 +80,18 @@
           <label for="memberUsername" class="form-label mt-4">닉네임</label>
           <input type="text" class="form-control" name="memberUsername" id="memberUsername" placeholder="닉네임을 입력해주세요."
             autocomplete="off">
-            <p><input type="button" id="check_button" value="중복 검사" class="btn btn-success" style="float: right; margin-top:28px;"
+
+            <p><input type="button" id="check_button" value="중복 검사" 
+              
+              class="btn btn-outline-success btn-sm" style="width:100%; margin-top:28px;"
               onclick="checkEmail();"></p>
+
         </div>
 </fieldset>
 <!-- 닉네임 유효성 검사-->
 <div class="success-message hide">초록: 사용가능한 닉네임 입니다.</div>
 <div class="success-message2 hide">노랑: 이미 사용중인 닉네임 입니다.</div>
-  <div class="failure-message hide">닉네임은 4~12자의 영문 한글 대소문자와 숫자로만 입력</div>
+  <div class="failure-message hide">최대 8글자 한글/영어대소문자/숫자만 가능합니다.</div>
         <!-- 생일 -->
 <fieldset>
         <div class="form-group">
@@ -235,11 +253,39 @@
               Women
             </label>
           </div> -->
-          <button type="submit" class="btn btn-success" style="float: right; margin-top:28px;" onclick="joinform_check();">회원가입</button>
+          <br/>
+          <button type="submit" class="btn btn-outline-success btn-sm" style="width:100%;" onclick="joinform_check();">회원가입</button>
 </fieldset>  
     </form>
   </div>
   <script th:src="@{js/member/signup.js}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function sendNumber(){
+        $("#mail_number").css("display","block");
+        $.ajax({
+            url:"/mail",
+            type:"post",
+            dataType:"json",
+            data:{"mail" : $("#memberEmail").val()},
+            success: function(data){
+                alert("인증번호 발송");
+                $("#Confirm").attr("value",data);
+            }
+        });
+    }
+
+    function confirmNumber(){
+        var number1 = $("#number").val();
+        var number2 = $("#Confirm").val();
+
+        if(number1 == number2){
+            alert("인증되었습니다.");
+        }else{
+            alert("번호가 다릅니다.");
+        }
+    }
+</script>
 </body>
 
 </html>
