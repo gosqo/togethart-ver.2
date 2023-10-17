@@ -68,6 +68,7 @@
         ,member_regi_type
         ,member_regi_date
         ,member_auth
+        ,member_image
         )values(
         #{memberEmail}
         ,#{memberPwd}
@@ -75,6 +76,7 @@
         ,#{memberRegiType}
         ,#{memberRegiDate}
         ,#{memberAuth}
+        ,'/imgs/member_default.png'
         );
 
     </insert>

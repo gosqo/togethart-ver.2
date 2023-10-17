@@ -10,7 +10,8 @@
 
 <body>
   <div class="input-container">
- 
+    <a th:href="@{/}">홈으로 돌아가기</a>
+
 
     <legend style="text-align: center;">로그인</legend>
 
@@ -34,13 +35,12 @@
         <a th:href="@{http://localhost:8080/login/findEmail}">이메일 찾기</a> / <a th:href="@{/login/findPwd}">비밀번호 찾기</a> / <a th:href="@{/signup}">회원가입</a> 
       </div>
       <div>
-        <button type="submit" class="btn btn-outline-success btn-sm" style="width:100%;" onclick="loginChk();">로그인</button>
-        <a th:href="@{/}">홈으로 돌아가기</a> 
-        
+        <button type="submit" class="btn btn-success" style="width:100%;" onclick="loginChk();">로그인</button>
 
 
 
-        <p><a onclick="setToken();" class="btn btn-outline-success btn-sm" style="width:100%;" href="https://kauth.kakao.com/oauth/authorize?client_id=adbbf5ce440e188cfcb07e0628098935&redirect_uri=http://localhost:8080/api/oauth/token&response_type=code">카카오로 로그인</a></p>
+
+<!--        <p><a onclick="setToken();" class="btn btn-outline-success btn-sm" style="width:100%;" href="https://kauth.kakao.com/oauth/authorize?client_id=adbbf5ce440e188cfcb07e0628098935&redirect_uri=http://localhost:8080/api/oauth/token&response_type=code">카카오로 로그인</a></p>-->
         
 
 
