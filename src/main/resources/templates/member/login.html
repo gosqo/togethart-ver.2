@@ -12,6 +12,7 @@
   <div class="input-container">
     <a th:href="@{/}">홈으로 돌아가기</a>
 
+
     <legend style="text-align: center;">로그인</legend>
 
     <form id="form" method="POST">
@@ -22,7 +23,7 @@
           placeholder="Enter email">
       </div>
       <div class="Login-email hide">반갑습니다 1조 TogethArt입니다.</div>
-
+    
       <!-- 비밀번호 -->
       <div class="form-group">
         <label for="memberPwd" class="form-label mt-4">Password</label>
@@ -31,18 +32,67 @@
         <div class="Login-password hide">TogethArt에 오신걸 환영합니다.</div>
       </div>
       <div style="margin-top:1rem; margin-bottom:1rem; text-align: right; display:block;">
-        <a th:href="@{http://localhost:8080/login/findEmail}">이메일 찾기</a> / <a th:href="@{/login/findPwd}">비밀번호 찾기</a> /
-        <a th:href="@{/signup}">회원가입</a>
+        <a th:href="@{http://localhost:8080/login/findEmail}">이메일 찾기</a> / <a th:href="@{/login/findPwd}">비밀번호 찾기</a> / <a th:href="@{/signup}">회원가입</a> 
       </div>
       <div>
-        <button type="submit" class="btn btn-success" style="float: right; margin-top:1.8rem;"
-          onclick="loginChk();">로그인</button>
+        <button type="submit" class="btn btn-success" style="width:100%;" onclick="loginChk();">로그인</button>
+
+
+
+
+<!--        <p><a onclick="setToken();" class="btn btn-outline-success btn-sm" style="width:100%;" href="https://kauth.kakao.com/oauth/authorize?client_id=adbbf5ce440e188cfcb07e0628098935&redirect_uri=http://localhost:8080/api/oauth/token&response_type=code">카카오로 로그인</a></p>-->
+        
+
 
       </div>
     </form>
   </div>
   <script th:src="@{js/member/login.js}"></script>
   <script th:src="@{js/socialToken.js}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+  const code = location.search.split('?code=')[1];
+  if (code !== undefined) {
+    requestToken(code)
+      .then(({ data }) => {
+        console.log('requestToken:', data)
+      })
+      .catch(err => {
+        console.error('requestToken:', err)
+      })
+  }
+  
+  function requestToken(code) {
+    const JS_APP_KEY ="a9de8be58c9a867c4079c2c58f1cc820";
+    const REDIRECT_URI = "http://localhost:8080/api/oauth/token";
+    const makeFormData = params => {
+      const searchParams = new URLSearchParams()
+      Object.keys(params).forEach(key => {
+        searchParams.append(key, params[key])
+      })
+  
+      return searchParams
+    }
+  
+    return axios({   
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      url: 'https://kauth.kakao.com/oauth/token',
+      data: makeFormData({
+        grant_type: 'authorization_code',
+        client_id: JS_APP_KEY,
+        redirect_uri: REDIRECT_URI,
+        code,
+      })
+    })
+  }
+  </script>
+
+
+
+
 </body>
 
 </html>

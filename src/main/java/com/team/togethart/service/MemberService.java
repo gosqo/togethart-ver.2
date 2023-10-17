@@ -147,7 +147,7 @@ public class MemberService implements UserDetailsService {
             e.printStackTrace();
         }
 
-        System.out.println("카카오 " + kakaoProfile2.getKakao_account().getEmail()) ;
+        System.out.println("카카오 " + kakaoProfile2.getKakao_account().getEmail());
 
 
         return kakaoProfile2;
@@ -165,7 +165,7 @@ public class MemberService implements UserDetailsService {
         MemberAddRequest member = memberMapper.findById(profile.getKakao_account().getEmail());
         String kakaopwd = "kakao";
         //(3)
-        if(member == null) {
+        if (member == null) {
             member = MemberAddRequest.builder()
                     .memberUsername("[kakao]" + profile.getKakao_account().getEmail() + "_" + profile.getId())
                     .memberPwd(kakaopwd)
@@ -186,8 +186,8 @@ public class MemberService implements UserDetailsService {
         String jwtToken = Jwts.builder()
                 .setSubject(member.getMemberUsername())
                 .claim("memberId", member.getMemberId())
-                .claim("memberEmail",member.getMemberEmail())
-                .claim("Username",member.getMemberUsername())
+                .claim("memberEmail", member.getMemberEmail())
+                .claim("Username", member.getMemberUsername())
                 .setIssuedAt(now) //토큰발행일자
                 .setExpiration(expiration)
                 .signWith(secretKey)
@@ -195,6 +195,7 @@ public class MemberService implements UserDetailsService {
         System.out.println("JwtUtils accessToken3 : " + jwtToken);
         return jwtToken;
     }
+
 // 카카오서비스 -------------------------------------------------------------------------------------
 
     // 회원탈퇴 - 비밀번호체크
@@ -271,9 +272,6 @@ public class MemberService implements UserDetailsService {
         int result = memberMapper.insert(memberAddRequest);
         return result == 1;
     }
-
-
-
 
 
     // 회원 찾기
@@ -355,10 +353,10 @@ public class MemberService implements UserDetailsService {
 
     public boolean confrimEmail(String memberemail) {
 
-        if(findEmail(memberemail)==null){
+        if (findEmail(memberemail) == null) {
             return true;
         }
-    return false;
+        return false;
     }
 
     private MemberAddRequest findEmail(String memberemail) {
@@ -371,8 +369,7 @@ public class MemberService implements UserDetailsService {
         MemberAddRequest memberAddRequest = new MemberAddRequest();
 
 
-
-        if(findUsername(memberUsername)==null )   {
+        if (findUsername(memberUsername) == null) {
             return true;
         }
         return false;
@@ -380,10 +377,10 @@ public class MemberService implements UserDetailsService {
 
     private MemberAddRequest findUsername(String memberUsername) {
 
-           return memberMapper.findByName(memberUsername);
+        return memberMapper.findByName(memberUsername);
     }
+
+
+
 }
-
-
-
 

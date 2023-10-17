@@ -7,18 +7,24 @@ function checkEmail(){
   xhr.onload=function(){
     if(xhr.status==200){
 
-      let color,message;
-
+      let color,message
+    
       console.log(xhr.response);
-      if(xhr.response=='true'){
+
+      if(xhr.response =='true'){
+  
         color = '#34fc0d';
         message = '사용 가능 한 이메일 입니다.';
+
+      
       }else {
         color = 'yellow';
         message = '이미 사용중인 이메일 입니다.';
 
       }
+      
       data.style.backgroundColor = color;
+      
       return;
     }
     alert('에러발생');
@@ -38,6 +44,7 @@ function checkusername(){
 
       console.log(xhr.response);
       if(xhr.response=='true'){
+
         color = '#34fc0d';
         message = '사용 가능한 닉네임';
       }else {
@@ -46,6 +53,8 @@ function checkusername(){
 
       }
       data.style.backgroundColor = color;
+      
+
       return;
     }
     alert('에러발생');
@@ -68,7 +77,7 @@ let elSuccessPwd2Message = document.querySelector('.success-pwd2message'); // di
 
 // 1. 닉네임 입력창 정보 가져오기
 let elInputUsername = document.querySelector('#memberUsername'); // input#username
-// 2. 실패 메시지 정보 가져오기 (글자수 제한 4~12글자 + 영어 숫자 한글만 가능)
+// 2. 실패 메시지 정보 가져오기 
 let elFailureMessage = document.querySelector('.failure-message'); // div.failure-message.hide
 // 3. 성공 메시지 정보
 let elSuccessMessage = document.querySelector('.success-message'); // div.success-message.hide
@@ -78,7 +87,7 @@ let elSuccessMessage2 = document.querySelector('.success-message2'); // div.succ
 
 // 1. 이메일 입력창 정보 가져오기
 let elInputEmail = document.querySelector('#memberEmail'); // input#username
-// 2. 실패 메시지 정보 가져오기 (이메일 형식이 안맞음)
+// 2. 실패 메시지 정보 가져오기 
 let elEmailfailMesasage = document.querySelector('.fail-emailmessage'); // div.strongPassword-message.hide
 // 3. 성공 메시지 정보 
 let elEmailSuccessMessage = document.querySelector('.Emailsuccess-message'); // div.success-message.hide
@@ -89,10 +98,10 @@ let elEmailSuccessMessage2 = document.querySelector('.Emailsuccess-message2'); /
 //-----------------유효성 검사 정규식 -----------------------------------------//
 
 function idLength(value) {
-  return value.length >= 4 && value.length <= 12
+  return value.length >= 8 
 }
 function usernamecheck(str) {
-  return /^[a-zA-Z0-9가-힣]{4,12}$/.test(str);
+  return /^[a-zA-Z0-9가-힣]{1,8}$/.test(str);
 }
 
 function emailcheck2(str) {
@@ -203,7 +212,7 @@ elInputPasswordRetype.onkeyup = function () {
 
 
 //------------------------------------------------alert창 ------------------------------------------------//
-//joinform_check 함수로 유효성 검사
+
 function joinform_check() {
   
   var memberEmail = document.getElementById("memberEmail");
@@ -214,7 +223,7 @@ function joinform_check() {
 
   var emailcheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
-  var usernamechck = /^[a-zA-Z0-9]{4,12}$/;
+  var usernamechck = /^[a-zA-Z0-9가-힣]{1,8}$/;
 
   //비밀번호 영문자+숫자+특수조합(8~25자리 입력)
   var memberPwdcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -259,14 +268,14 @@ function joinform_check() {
   };
 
   if (!usernamechck.test(memberUsername.value)) {
-    alert("닉네임은 4~12자의 영문 대소문자와 숫자로만 입력.");
+    alert("최대 8글자 한글/영어대소문자/숫자만 가능합니다.");
     memberPwd.focus();
     return false;
   }; 
 
   //입력 값 전송
 
-  document.join_form.submit(); //유효성 검사의 포인트   
+  document.join_form.submit();
 }
 
 //------------------------------------------------------------------------------------------------------------//
@@ -314,7 +323,7 @@ async function postFormDataAsJson({url, formData}) {
       window.location.replace('/login');
       
     } else {
-      alert('회원가입에 실패했습니다. 필수 항목을 기입해주시기 바랍니다.') ;
+      alert('회원가입에 실패했습니다. 중복검사를 확인 해 주세요.') ;
     }
   })
   .catch(error => console.log(error));

@@ -2,7 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.togethart.repository.member.MemberMapper">
 
-    <!-- username찾기 -->
+
+
+    <update id="updateImg">
+        UPDATE
+        togetharttest.member
+        set
+        member_image
+        = #{memberImage}
+        where
+        member_email= #{memberEmail}
+
+    </update>
 
 
     <!-- 로그인 -->

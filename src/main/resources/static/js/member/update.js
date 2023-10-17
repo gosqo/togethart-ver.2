@@ -1,3 +1,69 @@
+// 1. 비밀번호 입력창 정보 가져오기
+let elInputPassword = document.querySelector('#newPwd'); // input#password
+// 2. 비밀번호 확인 입력창 정보 가져오기
+let elInputPasswordRetype = document.querySelector('#newPwdCheck'); // input#password-retype
+// 3. 실패 메시지 정보 가져오기 (비밀번호 불일치)
+let elMismatchMessage = document.querySelector('.mismatch-message'); // div.mismatch-message.hide
+// 4. 실패 메시지 정보 가져오기 (8글자 이상, 영문, 숫자, 특수문자 미사용)
+let elStrongPasswordMessage = document.querySelector('.strongPassword-message'); // div.strongPassword-message.hide
+// 5. 성공 메시지 정보 가져오기
+let elSuccessPwdMessage = document.querySelector('.success-pwdmessage'); // div.success-message.hide
+let elSuccessPwd2Message = document.querySelector('.success-pwd2message'); // div.success-message.hide
+
+function isMatch (password1, password2) {
+  return password1 === password2;
+}
+
+function strongPassword (str) {
+  return /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(str);
+}
+
+//------------------------- 비밀번호  -----------------------------------------//
+
+elInputPassword.onkeyup = function () {
+
+  // console.log(elInputPassword.value);
+  // 값을 입력한 경우
+  if (elInputPassword.value.length !== 0) {
+    if(strongPassword(elInputPassword.value) === false) {
+      elSuccessPwdMessage.classList.add('hide')
+      elStrongPasswordMessage.classList.remove('hide'); 
+    }
+    else {
+      elSuccessPwdMessage.classList.remove('hide')
+      elStrongPasswordMessage.classList.add('hide'); 
+    }
+  }
+  // 값을 입력하지 않은 경우 (지웠을 때)
+  // 모든 메시지를 가린다.
+  else {
+    elStrongPasswordMessage.classList.add('hide');
+    elSuccessPwdMessage.classList.add('hide')
+  }
+};
+
+//----------------------------비밀번호 확인 ----------------------------------------//
+
+elInputPasswordRetype.onkeyup = function () {
+
+  if (elInputPasswordRetype.value.length !== 0) {
+    if(isMatch(elInputPassword.value, elInputPasswordRetype.value) === false) {
+
+      elSuccessPwd2Message.classList.add('hide');
+      elMismatchMessage.classList.remove('hide'); 
+    }
+    else {
+      elSuccessPwd2Message.classList.remove('hide');
+      elMismatchMessage.classList.add('hide'); // 실패 메시지가 보여야 함
+    }
+  }
+  else {
+    elSuccessPwd2Message.classList.add('hide');
+    elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
+  }
+};
+
+//----------------------------------------------------------------------------------------//
 const form = document.querySelector('#form');
 form.addEventListener('submit', handleFormSubmit);
 

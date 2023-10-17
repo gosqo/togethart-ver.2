@@ -18,18 +18,21 @@
     <!-- 이메일  -->
     <div class="form-group">
       <label for="email" class="form-label mt-4"></label>
-      <input type="hidden" class="form-control" name="memberEmail" id="memberEmail">
+      <input type="hidden" class="form-control" name="memberEmail" id="memberEmail" value="${login.memberEmail}">
     </div>
 		<!-- 자기소개 -->
 		<div class="form-group">
 			<label for="memberIntro" class="form-label mt-4">자기소개</label>
 			<textarea name="memberIntro" cols="40" rows="8" ></textarea>
 		  </div>
-		  <input type="submit" class="btn btn-success" style="float: right; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
-      <a th:href="@{/remove}">회원탈퇴</a> / 
+		  
+      <a th:href="@{/remove}">회원탈퇴</a>
       <a th:href="@{/profile/update}">비밀번호 변경</a>
       </fieldset>
     </form>
+</form>
+  
+<input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
   </div>
   <script th:src="@{/js/member/modify.js}">
   </script>

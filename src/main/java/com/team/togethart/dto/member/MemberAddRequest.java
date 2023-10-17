@@ -31,8 +31,8 @@ public class MemberAddRequest {
     private  String memberPwd;
 
     @NotBlank(message = "닉네임은 필수 입력값입니다.")
-    @Pattern(regexp = "^[a-zA-Z0-9가-힣]{4,12}$",
-            message = "닉네임은 4~12자의 영문 한글 대소문자와 숫자로만 입력.")
+    @Pattern(regexp = "^[a-zA-Z0-9가-힣]{1,8}$",
+            message = "닉네임은 1~8자의 영문 한글 대소문자와 숫자로만 입력.")
 
     private  String memberUsername;
     private  String memberRegiType;
