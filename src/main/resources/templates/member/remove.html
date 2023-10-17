@@ -1,0 +1,40 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <title>TogethArt | 회원탈퇴 </title>
+</head>
+<body>
+  <div class="input-container">
+    <!-- 회원 수정폼 -->
+    <form id="form" method="POST">
+      <fieldset>
+        <legend style="text-align: center;">회원탈퇴</legend>
+         <!-- 이메일  -->
+         <div class="form-group">
+          <label for="email" class="form-label mt-4"></label>
+          <input type="hidden" class="form-control" name="memberEmail" id="memberEmail">
+        </div>
+        <!-- 비밀번호 확인-->
+        <div class="form-group">
+          <label for="memberPwd" class="form-label mt-4">비밀번호 </label>
+          <input type="password" class="form-control" name="memberPwd" id="memberPwd"
+            placeholder="비밀번호를 입력해주세요." autocomplete="off">
+        </div>
+         <!-- 새 비밀번호 확인-->
+         <div class="form-group">
+          <label for="memberPwdcheck" class="form-label mt-4">비밀번호 </label>
+          <input type="password" class="form-control" name="memberPwd"
+            placeholder="비밀번호 확인" autocomplete="off">
+        </div>
+		  <button type="submit" class="btn btn-success" style="float: right; margin-top:28px;" >탈퇴하기</button>
+      </fieldset>
+    </form>
+  </div>
+  <script th:src="@{/js/member/remove.js}">
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <title>TogethArt | 로그인</title>
+</head>
+
+<body>
+  <div class="input-container">
+    <a th:href="@{/}">홈으로 돌아가기</a>
+
+    <legend style="text-align: center;">로그인</legend>
+
+    <form id="form" method="POST">
+      <!-- 이메일 주소 -->
+      <div class="form-group">
+        <label for="memberEmail" class="form-label mt-4">Email address</label>
+        <input type="email" class="form-control" name="memberEmail" id="memberEmail" aria-describedby="emailHelp"
+          placeholder="Enter email">
+      </div>
+      <div class="Login-email hide">반갑습니다 1조 TogethArt입니다.</div>
+
+      <!-- 비밀번호 -->
+      <div class="form-group">
+        <label for="memberPwd" class="form-label mt-4">Password</label>
+        <input type="password" class="form-control" name="memberPwd" id="memberPwd" placeholder="Password"
+          autocomplete="off">
+        <div class="Login-password hide">TogethArt에 오신걸 환영합니다.</div>
+      </div>
+      <div style="margin-top:1rem; margin-bottom:1rem; text-align: right; display:block;">
+        <a th:href="@{http://localhost:8080/login/findEmail}">이메일 찾기</a> / <a th:href="@{/login/findPwd}">비밀번호 찾기</a> /
+        <a th:href="@{/signup}">회원가입</a>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-success" style="float: right; margin-top:1.8rem;"
+          onclick="loginChk();">로그인</button>
+
+      </div>
+    </form>
+  </div>
+  <script th:src="@{js/member/login.js}"></script>
+  <script th:src="@{js/socialToken.js}"></script>
+</body>
+
+</html>

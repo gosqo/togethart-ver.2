@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+  <title>TogethArt</title>
+  <script type="text/javascript" th:src="@{/js/subscription/sub3.js}"></script>
+  <script type="text/javascript" th:src="@{/js/subscription/sub4.js}"></script>
+</head>
+
+<body>
+  <div class="wrap-body">
+    <!--부모 div-->
+    <div id="nav-wrapper" th:replace="~{/nav :: nav}"></div>
+
+    <!--상단, 배너 영역-->
+    <div id="myPageBanner" th:replace="~{/myPageBanner :: myPageBanner}"></div>
+    <!--메뉴바-->
+    <div id="myPageMenuBar" th:replace="~{/myPageMenuBar :: myPageMenuBar}"></div>
+
+    <nav id="subbar" class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <h5 class="nav-link">Subscribe information</h5>
+            </li>
+          </ul>
+          <button id="subscribe-button" class="btn btn-primary ms-auto">
+            구독 기능 활성화
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 구독 정보 페이지 -->
+    <table class="table table-hover" >
+      <thead>
+        <tr>
+          <th scope="col" style="color:darkgrey">유저 명</th>
+          <th scope="col" style="color:darkgrey">구독 시작 시각</th>
+          <th scope="col" style="color:darkgrey">구독 종료 시각</th>
+          <th scope="col" style="color:darkgrey">구독 연장</th>
+        </tr>
+      </thead>
+      <tbody id="subscriptionTableBody"></tbody>
+    </table>
+
+  </div>
+  <script src="/js/nav.js"></script>
+
+</body>
+
+</html>
