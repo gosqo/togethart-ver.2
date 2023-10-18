@@ -98,10 +98,10 @@ let elEmailSuccessMessage2 = document.querySelector('.Emailsuccess-message2'); /
 //-----------------유효성 검사 정규식 -----------------------------------------//
 
 function idLength(value) {
-  return value.length >= 8 
+  return value.length >= 12
 }
 function usernamecheck(str) {
-  return /^[a-zA-Z0-9가-힣]{1,8}$/.test(str);
+  return /^[a-zA-Z0-9가-힣]{1,12}$/.test(str);
 }
 
 function emailcheck2(str) {
@@ -223,7 +223,7 @@ function joinform_check() {
 
   var emailcheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
-  var usernamechck = /^[a-zA-Z0-9가-힣]{1,8}$/;
+  var usernamechck = /^[a-zA-Z0-9가-힣]{1,12}$/;
 
   //비밀번호 영문자+숫자+특수조합(8~25자리 입력)
   var memberPwdcheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -268,7 +268,7 @@ function joinform_check() {
   };
 
   if (!usernamechck.test(memberUsername.value)) {
-    alert("최대 8글자 한글/영어대소문자/숫자만 가능합니다.");
+    alert("최대 12글자 한글/영어대소문자/숫자만 가능합니다.");
     memberPwd.focus();
     return false;
   }; 

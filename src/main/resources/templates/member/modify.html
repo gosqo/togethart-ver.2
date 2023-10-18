@@ -26,13 +26,12 @@
 			<textarea name="memberIntro" cols="40" rows="8" ></textarea>
 		  </div>
 		  
-      <a th:href="@{/remove}">회원탈퇴</a>
+      <a th:href="@{/remove}">회원탈퇴</a> / 
       <a th:href="@{/profile/update}">비밀번호 변경</a>
       </fieldset>
+      <input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
     </form>
-</form>
-  
-<input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
+
   </div>
   <script th:src="@{/js/member/modify.js}">
   </script>

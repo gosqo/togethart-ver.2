@@ -63,7 +63,7 @@ async function postFormDataAsJson({url, formData}) {
     if(response.ok){
 
       alert('정보가 삭제 되었습니다.')
-      
+      sessionStorage.removeItem('jwtToken');
       window.location.replace('/login');
 
     }else{

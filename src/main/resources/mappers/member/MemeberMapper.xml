@@ -68,6 +68,7 @@
         ,member_regi_type
         ,member_regi_date
         ,member_auth
+        ,member_birth
         ,member_image
         )values(
         #{memberEmail}
@@ -76,6 +77,7 @@
         ,#{memberRegiType}
         ,#{memberRegiDate}
         ,#{memberAuth}
+        ,#{memberBirth}
         ,'/imgs/member_default.png'
         );
 
@@ -210,9 +212,7 @@
         UPDATE
         togetharttest.member
         SET
-        member_birth
-        = #{memberBirth}
-        ,member_intro
+        member_intro
         = #{memberIntro}
         WHERE
         member_email
@@ -225,8 +225,6 @@
         SET
         member_pwd
         = #{memberPwd}
-        ,member_birth
-        = #{memberBirth}
         ,member_image
         = #{memberImage}
         ,member_intro
