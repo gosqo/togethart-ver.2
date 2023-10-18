@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", async function () {
   const token = sessionStorage.getItem("jwtToken")?.replace("Bearer ", "");
-  const galleryContainer = document.querySelector(".gallery-container2");
+  const galleryContainer = document.querySelector(".gallery-container");
 
   if (!token) {
     console.log("토큰이 없습니다.");

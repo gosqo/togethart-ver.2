@@ -180,7 +180,11 @@
         = #{subscribeTo}
     </delete>
 
-    <!-- 구독자 전용 작품 보기 -->
+    <!-- 구독자 전용 작품 보기
+
+        ORDER BY 절 추가했습니다. - 김현봉
+
+     -->
     <select id="getsubimage" parameterType="Long" resultType="com.team.togethart.dto.subscription.SubscriptionImage">
         SELECT  u.artwork_id, u.resource_pathname
 
@@ -189,7 +193,8 @@
         join subscription s on a.member_id = s.subscribe_to
         where s.subscribe_from = #{memberId}
         and a.artwork_scope = 1
-        and s.expire_date &gt;= NOW();
+        and s.expire_date &gt;= NOW()
+        ORDER BY artwork_id DESC
     </select>
 
 

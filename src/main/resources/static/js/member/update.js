@@ -128,8 +128,9 @@ async function postFormDataAsJson({url, formData}) {
     if(response.ok){
 
       alert('정보가 변경되었습니다. 다시 로그인 해주세요.')
-      
+      sessionStorage.removeItem('jwtToken');
       window.location.replace('/login');
+
     }else{
 
       alert('비밀번호가 올바르지 않습니다. 다시 입력 해주세요')
