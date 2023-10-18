@@ -12,9 +12,6 @@ import java.util.Map;
 @RestController
 public class ArtworkApiController {
 
-//    @Autowired
-//    private ArtworkViewResponse artworkViewResponse;
-
     @Autowired
     private ArtworkService artworkService;
 
