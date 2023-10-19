@@ -28,7 +28,7 @@ public class LikeController {
     }
 
     @DeleteMapping("/unlike/{artworkId}/{memberId}")
-    public ResponseEntity<?> likeRemove(
+    public ResponseEntity<Object> likeRemove(
             @PathVariable("artworkId") Long artworkId,
             @PathVariable("memberId") Long memberId) {
 
