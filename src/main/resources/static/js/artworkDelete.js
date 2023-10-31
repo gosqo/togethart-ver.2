@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const token = sessionStorage.getItem("jwtToken")?.replace("Bearer ", "");
 
+  const deleteArtworkButton = document.getElementById("delete-artwork-button");
+
   if (!token) {
+    deleteArtworkButton.style.display = "none";
     console.log("토큰이 없습니다.");
     return;
   }
@@ -28,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const artworkId = currentURL.split("/").pop();
   console.log(artworkId);
   // 변수 설정 끝
-  const deleteArtworkButton = document.getElementById("delete-artwork-button");
 
   if (currentMemberId == artworkUploaderId) {
     deleteArtworkButton.style.display = "block";
