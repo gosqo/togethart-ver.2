@@ -11,7 +11,7 @@
          INNER JOIN artwork a USING(artwork_id)
          WHERE a.artwork_scope = 0
          ORDER BY a.artwork_id DESC
-         LIMIT 36
+         LIMIT 24
     </select>
 
     <select id="getPopularGalleryImage" resultType="com.team.togethart.dto.gallery.GalleryViewResponse">
@@ -22,7 +22,7 @@
          INNER JOIN artwork a USING(artwork_id)
          WHERE a.artwork_scope = 0
          ORDER BY popularity DESC
-         LIMIT 36
+         LIMIT 24
     </select>
 
 
