@@ -16,5 +16,4 @@ public class MemberViewResponse {
     // 회원이 올린 작품, 좋아요한 작품 각각 아트워크 4~5 개 받아와서 뿌려야 됨.
     private String ResizedPath;
 
-
 }

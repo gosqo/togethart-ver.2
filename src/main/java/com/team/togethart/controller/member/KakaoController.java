@@ -41,10 +41,7 @@ public class KakaoController {
                    headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 
             return ResponseEntity.ok().headers(headers).body(jwtToken);
-
         }
-
-
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser(HttpServletRequest request) {
 

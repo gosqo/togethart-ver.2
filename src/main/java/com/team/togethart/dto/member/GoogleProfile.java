@@ -22,14 +22,10 @@ public class GoogleProfile {
         this.email = email;
 
     }
-
     public MemberAddRequest toEntity(){
         return MemberAddRequest.builder()
                 .memberEmail(email+sub)
                 .memberUsername(name)
                 .build();
     }
-
-
-
 }

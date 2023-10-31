@@ -38,14 +38,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
-
         // 아래 부터 추가 사항.
         registry.addResourceHandler("/imgs/**")
                 .addResourceLocations("file:///" + uploadImagesPath + "/")
                 .setCachePeriod(3600)
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
-
     }
 
 }

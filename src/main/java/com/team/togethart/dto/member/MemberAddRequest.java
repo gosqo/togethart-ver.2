@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,6 +38,7 @@ public class MemberAddRequest {
     private  String memberRegiType;
     private String memberRegiDate;
     private  int memberAuth;
+
 
     private String povider;
     private String providerId;
