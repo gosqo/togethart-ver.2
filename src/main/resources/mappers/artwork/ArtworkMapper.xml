@@ -17,16 +17,16 @@
                m.member_image,
                u.resource_pathname,
                u.filename
-          FROM upload_file u
-         INNER JOIN artwork a
+          FROM togetharttest.upload_file u
+         INNER JOIN togetharttest.artwork a
                ON a.artwork_id = u.artwork_id
-         INNER JOIN member m
+         INNER JOIN togetharttest.member m
                ON m.member_id = a.member_id
          WHERE a.artwork_id = #{artworkId}
     </select>
 
     <update id="updateViewCount">
-        UPDATE artwork
+        UPDATE togetharttest.artwork
            SET view_count = view_count + 1
          WHERE artwork_id = #{artworkId}
     </update>
@@ -34,28 +34,28 @@
     <!-- 삭제 4번 -->
     <delete id="deleteUploadfile" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
         Delete
-        from upload_file
+        from togetharttest.upload_file
         where artwork_id
         = #{artworkId}
     </delete>
 
     <delete id="deleteComment" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
         Delete
-        from comment
+        from togetharttest.comment
         where artwork_id
         = #{artworkId}
     </delete>
 
     <delete id="deleteLikes" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
         Delete
-        from likes
+        from togetharttest.likes
         where artwork_id
         = #{artworkId}
     </delete>
 
     <delete id="deleteArtwork" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
         Delete
-        from artwork
+        from togetharttest.artwork
         where artwork_id
         = #{artworkId}
     </delete>

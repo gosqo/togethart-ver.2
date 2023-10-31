@@ -45,31 +45,24 @@ public class MemberService implements UserDetailsService {
 
     @Autowired
     private JwtUtils jwtUtils;
-
     private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
     // 회원가입 시 저장시간을 넣어줄 DateTime형
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
     Date time = new Date();
     String localTime = format.format(time);
 
-
     // 로그인
     public MemberAddRequest login(String email, String pwd) {
-
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         MemberAddRequest GetInfo = memberMapper.findById(email);
 
         String 불러온정보 = pwd;
         String 가져왔음 = GetInfo.getMemberPwd();
-
         boolean passMatch = passwordEncoder.matches(pwd, GetInfo.getMemberPwd());
-
         System.out.println("가져왔음" + " " + 가져왔음);
         System.out.println("불러온정보" + " " + 불러온정보);
         System.out.println("결과값" + " " + passMatch);
-
         if (GetInfo != null
                 && passMatch //가져온정보.getMemberPwd().equals(pwd)
         ) {
@@ -78,7 +71,6 @@ public class MemberService implements UserDetailsService {
             return null;
         }
     }
-
     // 카카오서비스 -------------------------------------------------------------------------------------
     public OAuthToken getAccessToken(String code) {
 
@@ -95,10 +87,8 @@ public class MemberService implements UserDetailsService {
         params.add("redirect_uri", "http://localhost:8080/api/oauth/token");
         params.add("code", code);
 
-
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
                 new HttpEntity<>(params, headers);
-
 
         ResponseEntity<String> accessTokenResponse = rt8.exchange(
                 "https://kauth.kakao.com/oauth/token",
@@ -106,7 +96,6 @@ public class MemberService implements UserDetailsService {
                 kakaoTokenRequest,
                 String.class
         );
-
 
         ObjectMapper objectMapper8 = new ObjectMapper();
         OAuthToken oauthToken = null;
@@ -155,7 +144,6 @@ public class MemberService implements UserDetailsService {
 
     }
 
-
     public String SaveUserAndGetToken(String token) {
 
         //(1)
@@ -199,7 +187,6 @@ public class MemberService implements UserDetailsService {
 // 카카오서비스 -------------------------------------------------------------------------------------
 
     // 회원탈퇴 - 비밀번호체크
-
     public MemberAddRequest checkpwd(String pwd) {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -217,22 +204,16 @@ public class MemberService implements UserDetailsService {
             return null;
         }
     }
-
     // 회원탈퇴
     public void deleteMemberByEmail(String memberEmail) {
         memberMapper.deleteMemberByEmail(memberEmail);
     }
 
-
     //-----------------------------------------------------------------------------------------------//
-
     //회원정보 수정 <비밀번호 변경>
     public MemberAddRequest getMemberByEmail(String memberEmail) {
-
         return memberMapper.getMemberByEmail(memberEmail);
-
     }
-
     public void modifyPwd(MemberPwUpdateRequest memberPwUpdateRequest) {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -242,12 +223,10 @@ public class MemberService implements UserDetailsService {
         memberMapper.modifyPwd(memberPwUpdateRequest);
     }
 
-
     //------------------------------------------------------------------------------------------//
 
     // 회원가입
     public boolean register(MemberAddRequest memberAddRequest) {
-
         // MemberAddRequest 객체 생성 및 정보 설정
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberAddRequest.setMemberPwd(passwordEncoder.encode(memberAddRequest.getMemberPwd()));
@@ -272,7 +251,6 @@ public class MemberService implements UserDetailsService {
         int result = memberMapper.insert(memberAddRequest);
         return result == 1;
     }
-
 
     // 회원 찾기
     public MemberAddRequest findMember(String memberusername) {
@@ -342,14 +320,12 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-
     public MemberAddRequest getUser(HttpServletRequest request) {
 
         request.getAttribute("memberEmail");
         MemberAddRequest member = memberMapper.findById(memberAddRequest.getMemberEmail());
         return member;
     }
-
 
     public boolean confrimEmail(String memberemail) {
 
@@ -368,7 +344,6 @@ public class MemberService implements UserDetailsService {
 
         MemberAddRequest memberAddRequest = new MemberAddRequest();
 
-
         if (findUsername(memberUsername) == null) {
             return true;
         }
@@ -376,11 +351,7 @@ public class MemberService implements UserDetailsService {
     }
 
     private MemberAddRequest findUsername(String memberUsername) {
-
         return memberMapper.findByName(memberUsername);
     }
-
-
-
 }
 

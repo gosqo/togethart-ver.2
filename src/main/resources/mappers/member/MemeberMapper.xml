@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.togethart.repository.member.MemberMapper">
 
-
-
     <update id="updateImg">
         UPDATE
         togetharttest.member
@@ -12,9 +10,7 @@
         = #{memberImage}
         where
         member_email= #{memberEmail}
-
     </update>
-
 
     <!-- 로그인 -->
     <select id="findById" parameterType="java.lang.String" resultType="com.team.togethart.dto.member.MemberAddRequest">
@@ -25,9 +21,7 @@
         WHERE
         member_email
         = #{memberEmail}
-
     </select>
-
     <select id="findByUsername" parameterType="java.lang.String" resultType="com.team.togethart.dto.member.MemberAddRequest">
         SELECT
         *
@@ -36,7 +30,6 @@
         WHERE
         member_username
         = #{memberUsername}
-
     </select>
 
     <!-- 로그인 -->
@@ -68,7 +61,6 @@
         ,member_regi_type
         ,member_regi_date
         ,member_auth
-        ,member_birth
         ,member_image
         )values(
         #{memberEmail}
@@ -77,7 +69,6 @@
         ,#{memberRegiType}
         ,#{memberRegiDate}
         ,#{memberAuth}
-        ,#{memberBirth}
         ,'/imgs/member_default.png'
         );
 

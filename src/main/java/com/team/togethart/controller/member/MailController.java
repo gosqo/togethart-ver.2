@@ -11,22 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 
 public class MailController {
-
     private final MailService mailService;
-
     @GetMapping("/mail")
     public String MailPage(){
         return "member/signup";
     }
-
     @ResponseBody
     @PostMapping("/mail")
     public String MailSend(String mail){
-
         int number = mailService.sendMail(mail);
-
         String num = "" + number;
-
         return num;
     }
 }

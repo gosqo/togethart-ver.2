@@ -26,7 +26,6 @@ import java.util.Map;
 @RestController 
 public class LoginJoinController {
 
-
     private final JavaMailSender javaMailSender;
 
     public LoginJoinController(JavaMailSender javaMailSender) {

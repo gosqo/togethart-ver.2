@@ -5,7 +5,7 @@
 <mapper namespace="com.team.togethart.repository.comment.CommentMapper">
 
     <insert id="insertComment" parameterType="com.team.togethart.dto.comment.CommentAddRequest">
-        INSERT INTO comment(
+        INSERT INTO togetharttest.comment(
             comment_id,
             artwork_id,
             member_id,
@@ -27,15 +27,15 @@
 
     <select id="selectCommentList" resultType="com.team.togethart.dto.comment.CommentViewResponse">
         SELECT c.comment_id, c.member_id, c.member_username, c.c_upload_date, c.comment_content, m.member_image
-          FROM comment c
-         INNER JOIN member m
+          FROM togetharttest.comment c
+         INNER JOIN togetharttest.member m
                ON c.member_id = m.member_id
          WHERE c.artwork_id = #{artworkId}
          ORDER BY c.c_upload_date ASC
     </select>
 
     <update id="updateComment" parameterType="com.team.togethart.dto.comment.CommentUpdateRequest">
-        UPDATE comment
+        UPDATE togetharttest.comment
            SET comment_content = #{commentContent},
                c_update_date = NOW()
          WHERE comment_id = #{commentId}
@@ -43,7 +43,7 @@
 
     <delete id="deleteComment">
         DELETE
-          FROM comment
+          FROM togetharttest.comment
          WHERE comment_id = #{commentId}
     </delete>
 
