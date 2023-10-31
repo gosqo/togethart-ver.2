@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.subscription.SubscriptionMapper">
+
+    <!-- 구독 하기 -->
+    <insert id="insertSubscription" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        INSERT
+        INTO subscription
+        (subscribe_from
+        , subscribe_to
+        , start_date
+        , expire_date)
+        VALUES
+        (#{subscribeFrom}
+        , #{subscribeTo}
+        , NOW()
+        , DATE_ADD(NOW(), INTERVAL 1 MONTH))
+
+    </insert>
+
+    <!-- 구독 연장 해주기 -->
+    <update id="extendSubscription" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE
+        togetharttest.subscription
+        SET expire_date = DATE_ADD(expire_date, INTERVAL 1 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+        AND expire_date &gt;= NOW();
+    </update>
+
+    <!-- 구독 재시작 -->
+    <update id="resubuser" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET
+        start_date = NOW(),
+        expire_date = DATE_ADD(NOW(), INTERVAL 1 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+    </update>
+
+
+    <!-- 구독 관계인지 검 증-->
+    <select id="getSubscription" resultType="long">
+        SELECT
+        COUNT(*)
+        FROM
+        subscription
+        WHERE
+        subscribe_to
+        = #{subscribeTo}
+        AND
+        subscribe_from
+        = #{subscribeFrom}
+    </select>
+
+
+    <!-- 이미 자격이 있는지 ?!-->
+    <select id="isMemberAuthExists" parameterType="java.lang.Long" resultType="boolean">
+        SELECT member_auth
+        FROM togetharttest.member
+        WHERE member_id = #{memberId};
+    </select>
+
+    <!-- 구독자를 받을 자격이 있는지 ? -->
+    <select id="isCertified" parameterType="java.lang.Long" resultType="boolean">
+        SELECT
+        CASE
+        WHEN (
+        SELECT COUNT(*)
+        FROM togetharttest.ARTWORK
+        WHERE member_id = #{memberId}
+        ) >= 10
+        AND (
+        SELECT SUM(like_count)
+        FROM ARTWORK
+        WHERE member_id = #{memberId}
+        ) >= 100
+        THEN 1
+        ELSE 0
+        END AS result;
+    </select>
+
+    <!-- 구독자를 받을 자격이 있는지 ? 2 -->
+    <select id="isCertified2" parameterType="java.lang.Long" resultType="boolean">
+        SELECT
+        CASE
+        WHEN (
+        SELECT COUNT(*)
+        FROM togetharttest.ARTWORK
+        WHERE member_id = #{memberId}
+        ) >= 10
+        AND (
+        SELECT SUM(like_count)
+        FROM ARTWORK
+        WHERE member_id = #{memberId}
+        ) >= 100
+        THEN 1
+        ELSE 0
+        END AS result;
+    </select>
+
+
+
+    <!-- 구독 자격 업데이트-->
+    <update id="updateMemberAuth" parameterType="com.team.togethart.dto.subscription.SubscriptionAuth">
+
+        UPDATE togetharttest.member
+        SET member_auth = 1
+        WHERE member_id = #{memberId}
+    </update>
+
+
+    <!-- 구독 권한 보내주기 -->
+    <select id="getAuthStatus" resultType="java.lang.Integer">
+        SELECT member_auth
+        FROM togetharttest.member
+        WHERE member_id = #{memberId}
+    </select>
+
+
+    <!-- 나를 구독하는 사람들의 이름 리스트-->
+    <select id="getsubscribefrom" resultType="com.team.togethart.dto.subscription.SubscriptionInfo">
+        SELECT
+
+        m.member_id As memberId,
+
+        m.member_username AS memberUsername,
+
+        s.START_DATE AS startDate,
+
+        s.expire_date AS expireDate
+
+        FROM
+
+       subscription AS s
+
+        JOIN
+
+        member AS m
+        ON
+
+        s.subscribe_from = m.member_id
+
+        where
+
+        s.subscribe_to = #{member_id}
+
+
+    </select>
+
+    <!-- 내가 구독하는 사람들의 이름 리스트-->
+    <select id="getsubscribeto" resultType="com.team.togethart.dto.subscription.SubscriptionInfo">
+
+        SELECT
+        m.member_id As memberId,
+        m.member_username AS memberUsername,
+        s.START_DATE AS startDate,
+        s.expire_date AS expireDate
+        FROM
+        (
+        SELECT DISTINCT
+        subscribe_from,
+        subscribe_to
+        FROM
+        togetharttest.subscription
+        ) AS distinct_sub
+        JOIN
+        togetharttest.subscription AS s
+        ON
+        distinct_sub.subscribe_from = s.subscribe_from
+        AND distinct_sub.subscribe_to = s.subscribe_to
+        JOIN
+        togetharttest.member AS m
+        ON
+        s.subscribe_to = m.member_id
+        WHERE
+        s.subscribe_from = #{member_id}
+
+    </select>
+
+    <!-- 만료시간 전 구독 취소하기-->
+
+
+    <delete id="deletesub" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        DELETE
+        FROM togetharttest.subscription
+        WHERE subscribe_from
+        = #{subscribeFrom}
+        AND subscribe_to
+        = #{subscribeTo}
+    </delete>
+
+    <!-- 구독자 전용 작품 보기 -->
+    <select id="getsubimage" parameterType="Long" resultType="com.team.togethart.dto.subscription.SubscriptionImage">
+        SELECT  u.artwork_id, u.resource_pathname
+
+        from upload_file u
+        JOIN artwork a ON u.artwork_id = a.artwork_id
+        join subscription s on a.member_id = s.subscribe_to
+        where s.subscribe_from = #{memberId}
+        and a.artwork_scope = 1
+        and s.expire_date &gt;= NOW();
+    </select>
+
+
+    <!-- 구독이 만료됐는지 ?-->
+    <select id="isSubscriptionExpired" resultType="boolean">
+        SELECT
+        COUNT(*)
+        FROM
+        togetharttest.subscription
+        WHERE
+        subscribe_from
+        = #{subscribeFrom}
+        AND
+        subscribe_to
+        = #{subscribeTo}
+        AND
+        expire_date &lt; NOW()
+    </select>
+
+    <!-- 작가들 이름 , 프사 가져오기-->
+    <select id="getauthor" resultType="com.team.togethart.dto.subscription.AuthorResponse">
+
+        SELECT
+
+        m.member_username AS memberUsername,
+
+        m.member_image As memberImage
+
+        FROM
+
+        togetharttest.subscription AS s
+
+        JOIN
+
+        togetharttest.member AS m
+
+        ON
+
+        s.subscribe_to = m.member_id
+
+        WHERE
+
+        s.subscribe_from = #{memberId};
+
+    </select>
+
+</mapper>

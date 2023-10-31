@@ -21,57 +21,14 @@ import java.io.IOException;
 
 @RestController
 public class MemberApiController {
-
     @Autowired
     private MemberMapper memberMapper;
-
     @Autowired
     private MemberService memberService;
-
     @Autowired
     private JwtUtils jwtUtils;
-
     @Autowired
     private MemberAddRequest memberAddRequest;
-
-
-    @GetMapping("/profile/common/account")
-    public String commontAccount(){
-        return "html/profile/account/profile_common_account";
-    }
-
-    @GetMapping("/profile/data")
-    @ResponseBody
-    public ResponseEntity<?> getArtistData(HttpServletRequest request) throws  IllegalAccessError {
-
-        String token = jwtUtils.getAccessToken(request);
-        String commonUserId = jwtUtils.getId(token);
-        System.out.println("id : " + commonUserId);
-
-        if (commonUserId != null) {
-            // ID를 이용해 관리자 정보를 가져옵니다.
-           MemberAddRequest memberAddRequest = memberMapper.getCommonInfoById(commonUserId);
-
-            if (memberAddRequest != null) {
-
-
-                return ResponseEntity.ok(memberAddRequest);
-
-
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized request");
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized request");
-        }
-    }
-
-
-    // 회원 정보 수정 폼 요청 처리
-  //  @GetMapping("/profile/modify")
-  //  public String commonAccountModify() {
-    //    return " ";
-   // }
 
 
     // 회원 정보 수정 처리
@@ -88,15 +45,8 @@ public class MemberApiController {
         return ResponseEntity.ok().build();
     }
 
-    // 회원 정보 수정 처리 비밀번호 변경
-/*
-    @GetMapping("/profile/update")
 
-    public String update(){
-
-        return "회원정보 변경 페이지 리턴";
-    }*/
-
+    //회원 비밀번호 변경
     @PostMapping("/profile/update")
 
     public ResponseEntity<?> passwd(@RequestBody MemberPwUpdateRequest memberPwUpdateRequest ,HttpServletRequest request, HttpServletResponse response){
@@ -127,43 +77,22 @@ public class MemberApiController {
 
         return new ResponseEntity<>("비밀번호 변경완료.",HttpStatus.OK);
     }
-
-
-    // 회원 탈퇴
-/*
-    @GetMapping("/remove")
-    public String remove(){
-
-        return "회원 탈퇴 페이지 리턴";
-    }
-*/
-
+    // 회원탈퇴
     @PostMapping("/remove")
 
     public ResponseEntity<?> remove(@RequestBody MemberAddRequest memberAddRequest,HttpServletRequest request, HttpServletResponse response){
-
         // 1. 비밀번호 체크
-
         MemberAddRequest dbMemberDTO = memberService.getMemberByEmail(memberAddRequest.getMemberEmail());
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
         boolean passMatch = passwordEncoder.matches(memberAddRequest.getMemberPwd(),dbMemberDTO.getMemberPwd());
-
         System.out.println("결과값 : " + passMatch);
-
         if(passMatch == false){
-
             return new ResponseEntity<>("현재 비밀번호가 틀렸습니다.",HttpStatus.FORBIDDEN);
         }
-
         // 2. 삭제완료
-
        memberService.deleteMemberByEmail(memberAddRequest.getMemberEmail());
 
-
         // 3. 로그아웃 처리 (세션,쿠키 삭제)
-
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
@@ -178,7 +107,6 @@ public class MemberApiController {
         }
         return new ResponseEntity<>("회원탈퇴 완료",HttpStatus.OK);
     }
-
 }
 
 
