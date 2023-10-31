@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sub")
 public class SubscriptionApiController {
-
+ /// 깃 커밋 테스트
     @Autowired
     private SubscriptionService subscriptionService;
 
