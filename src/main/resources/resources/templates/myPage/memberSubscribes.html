@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+	<title>TogethArt</title>
+	<script type="text/javascript" th:src="@{/js/subscription/sub.js}"></script>
+	<script
+			type="text/javascript"
+			th:src="@{/js/subscription/sub2.js}"
+	></script>
+</head>
+
+<body>
+	<div class="wrap-body">
+		<!--부모 div-->
+		<div id="nav-wrapper" th:replace="~{nav :: nav}"></div>
+
+		<!--상단, 배너 영역-->
+		<div id="myPageBanner" th:replace="~{myPageBanner :: myPageBanner}"></div>
+		<!--메뉴바-->
+		<div id="myPageMenuBar" th:replace="~{myPageMenuBar :: myPageMenuBar}"></div>
+		
+		<div class="" style="width: 90%; margin-top: 1.8rem; margin-left: auto; margin-right: auto;">
+<!--			<h2 class="gallery-txt">Subscribed</h2>-->
+
+<!--			<div class="gallery-list">-->
+<!--				<div class="gallery-div">-->
+<!--					<img class="gallery-img" src="./static/imgs/image1.png">-->
+<!--					<h2>작가 1</h2>-->
+<!--					<span class="art-cnt">3 작품</span>-->
+<!--				</div>-->
+<!--				<div class="gallery-list">-->
+<!--					<div class="gallery-div">-->
+<!--						<img class="gallery-img" src="./static/imgs/image1.png">-->
+<!--						<h2>작가 2</h2>-->
+<!--						<span class="art-cnt">3 작품</span>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+
+			<!-- 메인 갤러리 -->
+			<h2 class="gallery-txt">Artworks</h2>
+			<div class="gallery-container"></div>
+		</div>
+	</div>
+	<script src="/js/nav.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+	<title>TogethArt</title>
+</head>
+
+<body>
+	<div class="wrap-body">
+		<!--부모 div-->
+		<div id="nav-wrapper" th:replace="~{nav :: nav}"></div>
+
+		<!--상단, 배너 영역-->
+		<div id="myPageBanner" th:replace="~{myPageBanner :: myPageBanner}"></div>
+
+		<!--메뉴바-->
+		<div id="myPageMenuBar" th:replace="~{myPageMenuBar :: myPageMenuBar}"></div>
+
+		<!-- 메인 갤러리 -->
+		<div class="" style="width: 90%; margin-top: 1.8rem; margin-left: auto; margin-right: auto;">
+
+			<h2 class="gallery-txt">Artworks</h2>
+			<div id="artworks-container" class="gallery-container"></div>
+		</div>
+	</div>
+	<script src="/js/nav.js"></script>
+	<script src="/js/myPage/myPageArtworksWhole.js"></script>
+
+</body>
+
+</html>

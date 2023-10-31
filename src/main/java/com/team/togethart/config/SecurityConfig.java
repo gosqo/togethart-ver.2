@@ -37,17 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll()
-                .and();
-
+                .anyRequest().permitAll();
     }
 
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.userDetailsService(memberService).passwordEncoder(new BCryptPasswordEncoder());
-
     }
-
-
-
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.artwork.ArtworkMapper">
+
+    <select id="selectArtwork" resultType="com.team.togethart.dto.artwork.ArtworkViewResponse">
+        SELECT a.artwork_id,
+               a.member_id,
+               a.member_username,
+               a.artwork_title,
+               a.artwork_description,
+               a.a_upload_date,
+               a.artwork_scope,
+               a.view_count,
+               a.like_count,
+               m.member_image,
+               u.resource_pathname,
+               u.filename
+          FROM togetharttest.upload_file u
+         INNER JOIN togetharttest.artwork a
+               ON a.artwork_id = u.artwork_id
+         INNER JOIN togetharttest.member m
+               ON m.member_id = a.member_id
+         WHERE a.artwork_id = #{artworkId}
+    </select>
+
+    <update id="updateViewCount">
+        UPDATE togetharttest.artwork
+           SET view_count = view_count + 1
+         WHERE artwork_id = #{artworkId}
+    </update>
+
+    <!-- 삭제 4번 -->
+    <delete id="deleteUploadfile" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
+        Delete
+        from togetharttest.upload_file
+        where artwork_id
+        = #{artworkId}
+    </delete>
+
+    <delete id="deleteComment" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
+        Delete
+        from togetharttest.comment
+        where artwork_id
+        = #{artworkId}
+    </delete>
+
+    <delete id="deleteLikes" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
+        Delete
+        from togetharttest.likes
+        where artwork_id
+        = #{artworkId}
+    </delete>
+
+    <delete id="deleteArtwork" parameterType="com.team.togethart.dto.artwork.ArtworkDeleteRequest">
+        Delete
+        from togetharttest.artwork
+        where artwork_id
+        = #{artworkId}
+    </delete>
+
+</mapper>

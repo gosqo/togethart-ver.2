@@ -37,13 +37,9 @@ public class KakaoAccount {
 
     @Data
     public class Profile {
-
         public String nickname;
         public String thumbnail_image_url;
         public String profileImage_url;
-
-
-     //   public Boolean isDefault_image;
 
     }
 
