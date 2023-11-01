@@ -1,6 +1,7 @@
 package com.team.togethart.controller.artwork;
 
 import com.team.togethart.dto.artwork.ArtworkAddRequest;
+import com.team.togethart.dto.member.MemberTest;
 import com.team.togethart.service.ArtworkService;
 import com.team.togethart.service.NewArtworkService;
 import com.team.togethart.service.UploadService;
@@ -9,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -42,6 +40,21 @@ public class UploadController {
 
         return ResponseEntity.ok("ok");
     }
+
+
+    @PostMapping("/uploadFile2")
+    public ResponseEntity<?> uploadPost2(@ModelAttribute MemberTest memberTest)throws IOException{
+
+        System.out.println(memberTest.getMemberEmail());
+        System.out.println(memberTest.getMemberIntro());
+        System.out.println(memberTest.getMemberImage().getOriginalFilename());
+
+        uploadService.upload2(memberTest);
+
+        return ResponseEntity.ok("ok");
+    }
+
+
 
     @PostMapping("/newArtwork")
     public ResponseEntity<?> uploadFormData(
