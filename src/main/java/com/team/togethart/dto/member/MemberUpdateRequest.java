@@ -15,5 +15,4 @@ public class MemberUpdateRequest {
     private String memberBirth;
     private String memberImage;
     private String memberIntro;
-
 }

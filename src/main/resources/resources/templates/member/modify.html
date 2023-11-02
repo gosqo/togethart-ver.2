@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <title>TogethArt | 회원정보수정 </title>
+</head>
+
+<body>
+
+  <div class="input-container">
+    <!-- 회원 수정폼 -->
+    <form id="form" method="POST">
+      <fieldset>
+        <legend style="text-align: center;">회원정보수정</legend>
+    <!-- 이메일  -->
+    <div class="form-group">
+      <label for="email" class="form-label mt-4"></label>
+      <input type="hidden" class="form-control" name="memberEmail" id="memberEmail" value="${login.memberEmail}">
+    </div>
+		<!-- 자기소개 -->
+		<div class="form-group">
+			<label for="memberIntro" class="form-label mt-4">자기소개</label>
+			<textarea name="memberIntro" cols="40" rows="8" ></textarea>
+		  </div>
+		  
+      <a th:href="@{/remove}">회원탈퇴</a> / 
+      <a th:href="@{/profile/update}">비밀번호 변경</a>
+      </fieldset>
+      <input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
+    </form>
+
+  </div>
+  <script th:src="@{/js/member/modify.js}">
+  </script>
+</body>
+</html>

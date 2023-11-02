@@ -138,6 +138,10 @@ async function postFormDataAsJson({ url, formData }) {
 async function postFile({ formData }) {
     formData.append('file', document.querySelector('#file-input').files[0])
 
+    for (let key of formData.keys()) {
+        console.log(`${key}: ${formData.get(key)}`);
+    }
+    
     const fileUrl = '/uploadFile';
     const fetchOptions = {
         method: 'POST',

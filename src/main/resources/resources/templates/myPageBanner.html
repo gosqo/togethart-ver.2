@@ -1,0 +1,36 @@
+<div th:fragment="myPageBanner">
+  <!-- 마이 페이지 멤버 아이디 -->
+  <input id="member-id" type="hidden" th:value="${response.memberId}">
+  <div class="member-banner">
+    <div class="member-profile">
+      <div class="profile-image-div">
+        <!-- 유저 이미지 (당분간 보류.) -->
+        <img id="member-image" class="profile-image">
+      </div>
+      <div class="profile-info-div">
+        <div class="user-name" style="margin-bottom: 1rem;">
+          <!-- 유저네임 -->
+          <a id="member-username-anchor">
+            <h2 id="member-username" style="margin-left:0.4rem; display:inline;"></h2>
+          </a>
+          <button id="follow-button" class="btn btn-secondary my-2 my-sm-0" type="submit"
+            style="height:38px;float:right;margin-bottom:5px;">팔로우</button>
+        </div>
+        <div class="profile-list">
+          <ul class="member-cnt">
+            <!-- 나를 팔로우하는 사람들의 수 -->
+            <li id="count-follow-from" class="cnt-follower" style="margin-right: 1rem;">followFrom</li>
+            <!-- 내가 팔로우하는 사람들의 수 -->
+            <li id="count-follow-to" class="cnt-follower">followTo</li>
+            <!-- 
+								추가적으로 필요한 정보 아래에 추가. 
+								e.g. 업로드한 게시물 수, 모든 작품에 대한 좋아요 수 합계, 등등 사용자 관점에서 필요한 정보. (당분간 보류.)
+							-->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/follow/follow3.js"></script>
+  <script src="/js/myPage/myPageBanner.js"></script>
+</div>
