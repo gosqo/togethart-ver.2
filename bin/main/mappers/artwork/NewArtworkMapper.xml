@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.togethart.repository.artwork.NewArtworkMapper">
+    <insert id="newArtwork" parameterType="com.team.togethart.dto.artwork.ArtworkAddRequest">
+        INSERT INTO ARTWORK
+        (
+        MEMBER_ID,
+        ARTWORK_TITLE,
+        ARTWORK_DESCRIPTION,
+        A_UPLOAD_DATE,
+        ARTWORK_SCOPE,
+        VIEW_COUNT,
+        LIKE_COUNT,
+        MEMBER_USERNAME
+        )
+        VALUES
+        (
+        #{memberId},
+        #{artworkTitle},
+        #{artworkDescription},
+        DEFAULT,
+        #{artworkScope},
+        DEFAULT,
+        DEFAULT,
+        #{memberUsername}
+        )
+    </insert>
+</mapper>
