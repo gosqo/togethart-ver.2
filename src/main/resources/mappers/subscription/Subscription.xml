@@ -52,8 +52,6 @@
         subscribe_from
         = #{subscribeFrom}
     </select>
-
-
     <!-- 이미 자격이 있는지 ?!-->
     <select id="isMemberAuthExists" parameterType="java.lang.Long" resultType="boolean">
         SELECT member_auth
