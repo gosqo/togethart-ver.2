@@ -31,6 +31,8 @@
         SET
         member_image
         = #{memberImage}
+        ,member_intro
+        = #{memberIntro}
         WHERE
         member_email
         = #{memberEmail};
