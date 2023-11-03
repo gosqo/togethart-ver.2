@@ -2,92 +2,118 @@ window.addEventListener('load', () => {
   getCommentList();
 })
 
-// 토큰에서 유저네임 추출
-const token = sessionStorage.getItem('jwtToken')?.replace('Bearer ', '');
-const base64Payload = token.split('.')[1];
-const base64 = base64Payload.replace(/-/g, '+').replace(/_/g, '/');
-const decodedJWT = JSON.parse(
-  decodeURIComponent(
-    window
-      .atob(base64)
-      .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join('')
-  )
-);
-
-const commentUsername = decodedJWT.Username;
-
-
-// 댓글 작성 formDatas
-const form = document.querySelector('#comment-form');
-form.addEventListener('submit', handleFormSubmit);
-
-async function handleFormSubmit(event) {
-
-  event.preventDefault();
-
-  const form = event.currentTarget;
-  const url = `/comment/new`;
-
-  try {
-
-    const formData = new FormData(form);
-    const responseData = await postFormDataAsJson({ url, formData });
-
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// 댓글 작성 POST
-async function postFormDataAsJson({ url, formData }) {
-  const plainFormData = Object.fromEntries(formData.entries());
-  console.log(plainFormData);
+if (sessionStorage.jwtToken) {
+  console.log('logged in');
+  
+  // 토큰에서 유저네임 추출
+  const token = sessionStorage.getItem('jwtToken')?.replace('Bearer ', '');
+  const base64Payload = token.split('.')[1];
+  const base64 = base64Payload.replace(/-/g, '+').replace(/_/g, '/');
+  const decodedJWT = JSON.parse(
+    decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    )
+  );
+  
+  var commentUsername = decodedJWT.Username;
+  console.log('reading...');
   console.log(commentUsername);
-
-  const commentContent = plainFormData.commentContent;
-  console.log(commentContent);
-
-  const customBody = {
-    "artworkId": `${artworkId}`,
-    "memberId": `${userId}`,
-    "memberUsername": `${commentUsername}`,
-    "commentContent": `${commentContent}`
-  };
-
-
-  console.log(JSON.stringify(customBody) + ' customBody');
-
-  const fetchOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-
-    },
-    body: JSON.stringify(customBody),
-  };
-  if (commentContent !== "") {
-    fetch(url, fetchOptions)
-      .then((response) => {
-        if (response.status === 200) {
-          alert('댓글을 작성했습니다.')
-        } else {
-          alert('댓글 작성을 실패했습니다. 로그인 후, 작성해주세요.')
-        }
-        response.text();
-        console.log(response);
-        console.log(response.status);
-      })
-      .then(() => {
-        // getCommentList();
-        window.location.reload();
-      });
+  
+  
+  // 댓글 작성 formDatas
+  const form = document.querySelector('#comment-form');
+  form.addEventListener('submit', handleFormSubmit);
+  
+  async function handleFormSubmit(event) {
+  
+    event.preventDefault();
+  
+    const form = event.currentTarget;
+    const url = `/comment/new`;
+  
+      try {
+  
+        const formData = new FormData(form);
+        const responseData = await postFormDataAsJson({ url, formData });
+  
+      } catch (error) {
+        console.error(error);
+      }
+  
   }
-} // 댓글 작성 끝
+  
+  // 댓글 작성 POST
+  async function postFormDataAsJson({ url, formData }) {
+    console.log('postFormDataAsJson is called.');
+    const plainFormData = Object.fromEntries(formData.entries());
+    console.log(plainFormData + ' is an object named plainFormData.');
+    // console.log(commentUsername + ' is a memberUsername from token.');
+  
+    const commentContent = plainFormData.commentContent;
+    console.log(commentContent + ' is a commentContent.');
+  
+    const customBody = {
+      "artworkId": `${artworkId}`,
+      "memberId": `${userId}`,
+      "memberUsername": `${commentUsername}`,
+      "commentContent": `${commentContent}`
+    };
+  
+  
+    console.log(JSON.stringify(customBody) + ' is the customBody');
+  
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(customBody),
+    };
+  
+    if (commentContent !== "") {
+      fetch(url, fetchOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            alert('댓글을 작성했습니다.')
+          } else {
+            alert('댓글 작성을 실패했습니다. 문제가 계속되면 관리자에게 알려주십시오.')
+          }
+          response.text();
+          console.log(response);
+          console.log(response.status);
+        })
+        .then(() => {
+          // getCommentList();
+          window.location.reload();
+        });
+    } else {
+      alert('댓글 내용을 작성해주세요.')
+    }
+  } // 댓글 작성 끝
+
+  
+} else {
+
+  console.log('not logged in');
+
+  const submitButton = document.querySelector('#submit-button');
+  submitButton.addEventListener('click', handleClick);
+
+  function handleClick(event) {
+    
+    event.preventDefault();
+    alert('로그인 후 사용해주세요.');
+
+  }
+
+}
 
 // 댓글 조회
 function getCommentList() {
@@ -109,47 +135,31 @@ function commentList(data) {
 
   for (i = 0; i < data.length; i++) {
 
-    // < !--댓글 하나의 컨테이너: 플렉스-- >
-
-    //       <div class="comment-unit">
+    //    댓글 하나의 컨테이너: 플렉스
     const unit = document.createElement('div');
-    //         <!-- 프로필 사진 -->
-    //         <div class="member-image-container">
+    //         프로필 사진 
     const memberImageWrapper = document.createElement('div');
-    //           <img id="member-image" class="member-image" src="/imgs/image2.png" alt="member-profile-image">
     const memberImg = document.createElement('img');
-    //         </div>
-    //         <!-- 작성자, 업로드•수정일자, 컨텐츠 컨테이너 -->
-    //         <div style="flex:1;">
+    //         작성자, 업로드•수정일자, 컨텐츠 컨테이너 
     const rightSide = document.createElement('div');
-    //           <div>
     const writerAndDate = document.createElement('div');
-    //             <!-- 작성자 -->
-    //             <span><a id="comment-username" href="" style="margin-bottom: .1rem;">회원 닉네임 (유저네임)</a></span>
+    //             작성자 
     const writerSpan = document.createElement('span');
     const writerAnchor = document.createElement('a');
-    //             <!-- 업로드•수정일자 -->
-    //             <span id="comment-upload-date" style="margin-left:1.5rem;">2023.09.22</span>
+    //             업로드•수정일자 
     const writerDate = document.createElement('span');
-    //           </div>
-    //           <!-- 댓글 내용 -->
-    //           <div>
+    //         댓글 내용 
     const contentWrapper = document.createElement('div');
-    //             <p id="comment-content">Lorem ipsum dolor facilis veritatis aperiam unde saepe vitae debitis ratione itaque reiciendis ipsam
-    //               id cumque pariatur non in nisi quibusdam consequuntur.</p>
     const content = document.createElement('p');
-    //           </div>
-    //  <button type="submit"></button>
+    //         버튼
     const commentDeleteButton = document.createElement('button');
-    //         </div>
-    //       </div>
 
     const commentId = data[i].commentId;
     const memberUsername = data[i].memberUsername;
     const commentContent = data[i].commentContent;
     const memberImage = data[i].memberImage;
     const cUploadDate = data[i].cuploadDate;
-    const memberId = data[i].memberId;
+    const commentMemberId = data[i].memberId;
 
     const uploadDate = new Date(cUploadDate);
     const year = uploadDate.getFullYear();
@@ -164,7 +174,7 @@ function commentList(data) {
     memberImg.src = memberImage; // memberImage used.
     rightSide.style.flex = '1';
     writerAnchor.innerHTML = `${memberUsername}`; // memberUsername used.
-    writerAnchor.href = `/member/${memberId}`; // memberId used.
+    writerAnchor.href = `/member/${commentMemberId}`; // commentMemberId used.
     writerAnchor.style.marginBottom = '0.1rem';
     writerDate.innerHTML = commentUploadDate; // cUploadDate used.
     writerDate.style.marginLeft = '1.5rem';
@@ -187,7 +197,7 @@ function commentList(data) {
     writerSpan.appendChild(writerAnchor);
     contentWrapper.appendChild(content);
 
-    if (memberId != userId) {
+    if (commentMemberId != userId) {
       commentDeleteButton.style.display = 'none';
     }
 
@@ -211,24 +221,6 @@ function handleRemoveComment(event) {
     console.error(error);
   }
 
-
-
-}
-
-function removeComment(commentId) {
-  fetch(`/comment/${commentId}`, {
-    method: 'DELETE'
-  })
-    .then(response => {
-      console.log(response.status);
-      if (response.status == 200) {
-        alert('댓글이 삭제 됐습니다.')
-      } else {
-        alert('댓글 삭제 중 문제가 발생 했습니다. 다시 시도해주세요.')
-      }
-    })
-    .then(() => window.location.reload())
-    .catch(e => console.error(e));
 }
 
 function removeComment(commentId) {

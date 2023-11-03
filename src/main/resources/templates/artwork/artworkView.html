@@ -77,7 +77,7 @@
       <div>
         <!-- 좋아요 -->
         <input id="like-button" type="button"></input>
-        <span id="likeCount">16</span>
+        <span id="likeCount"></span>
         <!-- 조회수 -->
         <span id="viewCount" style="margin-left:.5rem;" th:text="${artwork.viewCount} + ' 조회'"></span>
         <!-- 업로드 날짜 -->
@@ -93,51 +93,25 @@
       </div> -->
 
       <!-- 작품 설명 -->
-      <div class="artwork-description" th:text="${artwork.artworkDescription}">
-        <p>작품 설명 Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero adipisci labore quaerat consectetur
-          aliquam iusto, ad quos, sint facilis, et numquam ullam quasi placeat. Praesentium nam veniam ducimus odit
-          enim.</p>
-      </div>
+      <div class="artwork-description" th:text="${artwork.artworkDescription}"></div>
     </div>
   </div>
 
   <!-- 댓글 -->
   <div class="comment-container">
     <!-- 댓글 작성란 -->
-    <form id="comment-form" method="POST" class="comment-form">
+    <form id="comment-form" class="comment-form">
       <div class="form-group comment-textarea">
         <label for="commentContent" class="form-label">댓글</label>
         <textarea class="form-control" id="comment-content" name="commentContent" rows="3"></textarea>
       </div>
-      <button class="btn btn-success" type="submit" style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글
+      <button id="submit-button" class="btn btn-success" type="submit" style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글
         작성</button>
     </form>
 
     <!-- 댓글 불러오기 -->
     <!-- 댓글 리스트 컨테이너 -->
-    <div id="comment-list-container" class="comment-list-container">
-      <!-- 댓글 하나의 컨테이너: 플렉스
-      <div class="comment-unit">
-        프로필 사진
-        <div class="member-image-container">
-          <img id="member-image" class="member-image" src="/imgs/image2.png" alt="member-profile-image">
-        </div>
-        작성자, 업로드•수정일자, 컨텐츠 컨테이너
-        <div style="flex:1;">
-          <div>
-            작성자
-            <span><a id="comment-username" href="" style="margin-bottom: .1rem;">회원 닉네임 (유저네임)</a></span>
-            업로드•수정일자
-            <span id="comment-upload-date" style="margin-left:1.5rem;">2023.09.22</span>
-          </div>
-          댓글 내용
-          <div>
-            <p id="comment-content">Lorem ipsum dolor facilis veritatis aperiam unde saepe vitae debitis ratione itaque reiciendis ipsam
-              id cumque pariatur non in nisi quibusdam consequuntur.</p>
-          </div>
-        </div>
-      </div> -->
-    </div>
+    <div id="comment-list-container" class="comment-list-container"></div>
   </div>
   <script type="text/javascript" th:src="@{/js/like/like.js}"></script>
   <script type="text/javascript" th:src="@{/js/artworkView.js}"></script>
@@ -145,7 +119,6 @@
   <script type="text/javascript" th:src="@{/js/follow/follow1.js}"></script>
   <script type="text/javascript" th:src="@{/js/subscription/sub.js}"></script>
   <script type="text/javascript" th:src="@{/js/comment/comment.js}"></script>
-  <script typp="text/javascript" th:src="@{/js/comment/commentDelete.js}"></script>
   <script type="text/javascript" th:src="@{/js/artworkDelete.js}"></script>
 
 </body>
