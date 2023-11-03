@@ -30,6 +30,13 @@
       <label for="email" class="form-label mt-4" enctype="multipart/form-data">이미지</label>
     <input type="file" id="memberImage" name="memberImage" accept='image/*'/>
     <img id="previewImg" width="150" alt="이미지 영역"/>
+
+    <br>
+    <!-- <button class="btn btn-success" style="width:100%; margin-top:28px;"
+                                id="nidBtn"
+                                type="button" onclick="openNidPopup()">변경하기
+                        </button>
+                        34~38 팝업메소드 -->
     </div>
 		<!-- 자기소개 -->
 		<div class="form-group">
@@ -39,7 +46,7 @@
       <a th:href="@{/remove}">회원탈퇴</a> / 
       <a th:href="@{/profile/update}">비밀번호 변경</a>
       </fieldset>
-      <input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
+      <input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정"></button>
     </form>
   </div>
   <script th:src="@{/js/member/modify.js}">

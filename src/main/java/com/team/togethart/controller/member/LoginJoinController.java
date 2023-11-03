@@ -4,6 +4,7 @@ import com.team.togethart.config.jwt.JwtUtils;
 import com.team.togethart.dto.member.MailDto;
 import com.team.togethart.dto.member.MemberAddRequest;
 import com.team.togethart.dto.member.MemberLoginRequest;
+import com.team.togethart.dto.member.MemberUpdateRequest;
 import com.team.togethart.repository.member.MemberMapper;
 import com.team.togethart.service.MemberService;
 import com.team.togethart.service.SendEmailService;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,8 +108,19 @@ public class LoginJoinController {
         return ResponseEntity.ok().build();
     }
 
+    //프로필 이미지 찾기
+    @PostMapping("profile/image")
+    public ResponseEntity<?> imageback(@RequestBody MemberUpdateRequest memberUpdateRequest ){
+
+        memberService.findimage(memberUpdateRequest.getMemberEmail());
+
+        return ResponseEntity.ok(memberService.findimage(memberUpdateRequest.getMemberEmail()));
+
+    }
+
     // 이메일 찾기
     @PostMapping("/login/findEmail")
+
     public ResponseEntity<?> findUserId(@RequestBody Map<String, String> params) {
         String username = params.get("memberUsername");
         List<String> userIds = memberService.findUserIdsByNameAndEmail(username);
@@ -115,6 +128,7 @@ public class LoginJoinController {
     }
     // 비밀번호 찾기
     @PostMapping("login/findPwd")
+
     public ResponseEntity<?> findUserPw(@RequestBody Map<String, String> params) {
         String Pwd = params.get("memberEmail");
         List<String> useremails = memberService.findUserIdsByNameAndPwd(Pwd);
@@ -154,7 +168,9 @@ public class LoginJoinController {
     // Username 중복확인
     @RequestMapping("/check/memberUsername")
     public boolean confrimUsername(HttpServletRequest request, HttpServletResponse response) {
+
         return memberService.confrimUsername((String)request.getParameter("memberUsername"));
+
     }
 }
 

@@ -2,7 +2,9 @@ package com.team.togethart.controller.artwork;
 
 import com.team.togethart.dto.artwork.ArtworkAddRequest;
 import com.team.togethart.dto.member.MemberTest;
+import com.team.togethart.dto.member.MemberUpdateRequest;
 import com.team.togethart.service.ArtworkService;
+import com.team.togethart.service.MemberService;
 import com.team.togethart.service.NewArtworkService;
 import com.team.togethart.service.UploadService;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +27,10 @@ public class UploadController {
 
     @Autowired
     private NewArtworkService newArtworkService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private MemberUpdateRequest memberUpdateRequest;
 
     @Value("${file.upload.location}")
     private String pathname;
@@ -43,13 +49,21 @@ public class UploadController {
 
 
     @PostMapping("/uploadFile2")
-    public ResponseEntity<?> uploadPost2(@ModelAttribute MemberTest memberTest)throws IOException{
+    public ResponseEntity<?> uploadPost2(@ModelAttribute MemberTest memberTest
+    ,@RequestPart(value = "memberImage", required = true) MultipartFile memberImage
+    )throws IOException{
 
         System.out.println(memberTest.getMemberEmail());
         System.out.println(memberTest.getMemberIntro());
-        System.out.println(memberTest.getMemberImage().getOriginalFilename());
+       // System.out.println(memberTest.getMemberImage().getOriginalFilename());
 
-        uploadService.upload2(memberTest);
+        if(memberImage == null){
+            memberService.modifyCommonWithoutImage(memberUpdateRequest);
+        }else{
+            uploadService.upload2(memberTest);
+        }
+
+//        uploadService.upload2(memberTest);
 
         return ResponseEntity.ok("ok");
     }

@@ -44,6 +44,10 @@ public interface MemberMapper {
 
     //이메일찾기 찾기
     List<String> findUserIdsByNameAndEmail(@Param("memberUsername") String name);
+
+
+    // 프로필 이미지 불러오기
+    MemberUpdateRequest findImage(@Param("memberEmail")String memeberImage);
     
     
     //이메일로 정보 가져오기
@@ -63,9 +67,6 @@ public interface MemberMapper {
     //비밀번호 변경
 
     void modifyPwd(MemberPwUpdateRequest memberPwUpdateRequest);
-
-
-
 
     //-----------------------------------------------------------------------------------------------//
     

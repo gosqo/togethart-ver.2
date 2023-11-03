@@ -294,6 +294,15 @@ public class MemberService implements UserDetailsService {
         return userIds;
     }
 
+    // 이미지 찾기
+    public MemberUpdateRequest findimage(String memberEmail) {
+
+        memberMapper.findImage(memberEmail);
+
+        return (MemberUpdateRequest) memberMapper.findImage(memberEmail);
+
+    }
+
 
     // 비밀번호 찾기
     public List<String> findUserIdsByNameAndPwd(String pwd) {
@@ -307,7 +316,9 @@ public class MemberService implements UserDetailsService {
 
     //회원정보 수정
     public void modifyCommonWithoutImage(MemberUpdateRequest memberUpdateRequest) {
+
         memberMapper.modifyCommonWithoutImage(memberUpdateRequest);
+
     }
 
     public void modifyCommon(MemberUpdateRequest memberUpdateRequest, MultipartFile imgFile) throws IOException {
