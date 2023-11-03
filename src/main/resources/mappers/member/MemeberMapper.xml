@@ -94,6 +94,16 @@
         = #{memberEmail}
     </select>
 
+    <!-- 자기소개 가져오기-->
+    <select id="findByIntro" parameterType="java.lang.String" resultType="com.team.togethart.dto.member.MemberTest">
+        SELECT
+        member_intro
+        FROM
+        togetharttest.member
+        WHERE
+        member_email
+        = #{memberEmail}
+    </select>
 
     <!-- 이메일 찾기 -->
     <select id="findUserIdsByNameAndEmail" resultType="String">

@@ -31,6 +31,9 @@ public class UploadService {
     @Autowired
     private MemberMapper memberMapper;
 
+    @Autowired
+    private MemberService memberService;
+
 
     public void upload(MultipartFile uploadFile) throws IOException {
 
@@ -128,8 +131,12 @@ public class UploadService {
             multipartFile.transferTo(saveFile);
 
             memberUpdateRequest.setMemberImage(memberImage);
+
+
+
+
             memberUpdateRequest.setMemberEmail(memberTest.getMemberEmail());
-            uploadRepository.upload2(memberUpdateRequest);
+            uploadRepository.upload3(memberUpdateRequest);
 
             // 자기소개만 쓸 경우 이미지 set X
         } else if(memberTest.getMemberImage().isEmpty() && !memberTest.getMemberIntro().equals("")) {

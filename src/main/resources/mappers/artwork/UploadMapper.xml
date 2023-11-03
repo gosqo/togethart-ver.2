@@ -38,6 +38,22 @@
         = #{memberEmail};
     </update>
 
+
+    <update id="upload3" parameterType="com.team.togethart.dto.member.MemberUpdateRequest">
+        UPDATE
+        togetharttest.member
+        SET
+        member_image
+        = #{memberImage}
+        WHERE
+        member_email
+        = #{memberEmail};
+    </update>
+
+
+
+
+
     <select id="selectArtworkId" resultType="java.lang.Long">
         SELECT artwork_id
           FROM artwork

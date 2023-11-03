@@ -281,6 +281,16 @@ public class MemberService implements UserDetailsService {
 
     }
 
+    // 자기소개 찾기
+    public MemberUpdateRequest findByIntro(String memberEmail) {
+
+        memberMapper.findByIntro(memberEmail);
+
+        return (MemberUpdateRequest) memberMapper.findImage(memberEmail);
+
+    }
+
+
 
     // 비밀번호 찾기
     public List<String> findUserIdsByNameAndPwd(String pwd) {

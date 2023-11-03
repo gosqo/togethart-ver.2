@@ -13,4 +13,6 @@ public interface UploadMapper {
 
     void upload2(MemberUpdateRequest memberUpdateRequest);
 
+    void upload3(MemberUpdateRequest memberUpdateRequest);
+
 }

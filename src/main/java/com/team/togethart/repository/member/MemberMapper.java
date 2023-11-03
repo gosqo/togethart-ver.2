@@ -2,6 +2,7 @@ package com.team.togethart.repository.member;
 
 import com.team.togethart.dto.member.MemberAddRequest;
 import com.team.togethart.dto.member.MemberPwUpdateRequest;
+import com.team.togethart.dto.member.MemberTest;
 import com.team.togethart.dto.member.MemberUpdateRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,6 +19,8 @@ public interface MemberMapper {
     MemberAddRequest findById2(String memberEmail);
     MemberAddRequest findByName(@Param("memberUsername") String memberUsername);
     MemberAddRequest findByeRegiType(String memberRegiType);
+
+
 
     // 연동 확인
     List<MemberAddRequest> getUserList();
@@ -42,6 +45,15 @@ public interface MemberMapper {
 
     // 프로필 이미지 불러오기
     MemberUpdateRequest findImage(@Param("memberEmail")String memeberImage);
+
+
+
+    MemberTest findByIntro(@Param("memberEmail") String memberIntro);
+
+
+
+
+
     
     
     //이메일로 정보 가져오기
