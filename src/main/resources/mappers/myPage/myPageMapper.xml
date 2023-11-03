@@ -11,14 +11,14 @@
                member_birth,
                member_image,
                member_intro
-          FROM member
+          FROM togetharttest.member
          WHERE member_id = #{memberId}
     </select>
 
     <select id="selectMyPageArtworks" resultType="com.team.togethart.dto.myPage.MyPageArtworksResponse">
         SELECT u.artwork_id,
                u.resource_pathname
-          FROM upload_file u
+          FROM togetharttest.upload_file u
          INNER JOIN artwork a USING(artwork_id)
          WHERE a.member_id = #{memberId} AND a.artwork_scope = 0
          ORDER BY artwork_id DESC
@@ -28,7 +28,7 @@
     <select id="selectMyPageLikes" resultType="com.team.togethart.dto.myPage.MyPageLikesResponse">
         SELECT u.artwork_id,
                u.resource_pathname
-          FROM artwork a
+          FROM togetharttest.artwork a
          INNER JOIN upload_file u USING(artwork_id)
          INNER JOIN likes l USING(artwork_id)
          WHERE l.member_id = #{memberId} AND a.artwork_scope = 0
@@ -39,7 +39,7 @@
     <select id="selectMyPageArtworksWhole" resultType="com.team.togethart.dto.myPage.MyPageArtworksResponse">
         SELECT u.artwork_id,
                u.resource_pathname
-          FROM upload_file u
+          FROM togetharttest.upload_file u
          INNER JOIN artwork a USING(artwork_id)
          WHERE a.member_id = #{memberId} AND a.artwork_scope = 0
          ORDER BY artwork_id DESC
@@ -48,7 +48,7 @@
     <select id="selectMyPageLikesWhole" resultType="com.team.togethart.dto.myPage.MyPageLikesResponse">
         SELECT u.artwork_id,
         u.resource_pathname
-        FROM artwork a
+        FROM togetharttest.artwork a
         INNER JOIN upload_file u USING(artwork_id)
         INNER JOIN likes l USING(artwork_id)
         WHERE l.member_id = #{memberId} AND a.artwork_scope = 0

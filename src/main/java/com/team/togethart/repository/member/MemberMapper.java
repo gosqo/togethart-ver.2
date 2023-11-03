@@ -11,16 +11,10 @@ import java.util.List;
 @Mapper
 public interface MemberMapper {
 
-
-
-
     static void deleteByUserId(String userEmail) {
-
     }
-
     // 로그인
     MemberAddRequest findById(String memberEmail);
-
     MemberAddRequest findById2(String memberEmail);
     MemberAddRequest findByName(@Param("memberUsername") String memberUsername);
     MemberAddRequest findByeRegiType(String memberRegiType);
@@ -51,7 +45,6 @@ public interface MemberMapper {
 
     int deleteBooked(int sId, List<String> seatNumList); //추가
 
-
     //회원정보 수정
     void modifyCommonWithoutImage(MemberUpdateRequest memberUpdateRequest);
     void commonModify(MemberUpdateRequest memberUpdateRequest);
@@ -61,11 +54,7 @@ public interface MemberMapper {
 
 
     //비밀번호 변경
-
     void modifyPwd(MemberPwUpdateRequest memberPwUpdateRequest);
-
-
-
 
     //-----------------------------------------------------------------------------------------------//
     
@@ -73,18 +62,13 @@ public interface MemberMapper {
     MemberAddRequest findByPwd (String memberPwd);
 
     //Email 찾아오기
-
     MemberAddRequest getMemberByEmail(String memberEmail);
 
-    
     // 회원탈퇴
-
     void deleteMemberByEmail(String memberemail);
 
     // 임시비밀번호 업데이트
     void updateUserPassword(MemberAddRequest memberAddRequest);
-
-
 
 }
 
