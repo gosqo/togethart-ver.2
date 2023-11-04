@@ -27,6 +27,14 @@ public class CommentApiController {
 
     }
 
+    @GetMapping("/comment/modify/{commentId}")
+    public ResponseEntity<CommentViewResponse> commentGet(
+            @PathVariable("commentId")Long commentId) {
+
+        return ResponseEntity.status(200)
+                .body(commentService.getComment(commentId));
+    }
+
     @PostMapping("/comment/new")
     public ResponseEntity<Object> commentAdd(
             @RequestBody CommentAddRequest commentAddRequest) {

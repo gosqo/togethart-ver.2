@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
 
 if (sessionStorage.jwtToken) {
   console.log('logged in');
-  
+
   // 토큰에서 유저네임 추출
   const token = sessionStorage.getItem('jwtToken')?.replace('Bearer ', '');
   const base64Payload = token.split('.')[1];
@@ -20,54 +20,54 @@ if (sessionStorage.jwtToken) {
         .join('')
     )
   );
-  
+
   var commentUsername = decodedJWT.Username;
   console.log('reading...');
   console.log(commentUsername);
-  
-  
+
+
   // 댓글 작성 formDatas
   const form = document.querySelector('#comment-form');
   form.addEventListener('submit', handleFormSubmit);
-  
+
   async function handleFormSubmit(event) {
-  
+
     event.preventDefault();
-  
+
     const form = event.currentTarget;
     const url = `/comment/new`;
-  
-      try {
-  
-        const formData = new FormData(form);
-        const responseData = await postFormDataAsJson({ url, formData });
-  
-      } catch (error) {
-        console.error(error);
-      }
-  
+
+    try {
+
+      const formData = new FormData(form);
+      const responseData = await postFormDataAsJson({ url, formData });
+
+    } catch (error) {
+      console.error(error);
+    }
+
   }
-  
+
   // 댓글 작성 POST
   async function postFormDataAsJson({ url, formData }) {
     console.log('postFormDataAsJson is called.');
     const plainFormData = Object.fromEntries(formData.entries());
     console.log(plainFormData + ' is an object named plainFormData.');
     // console.log(commentUsername + ' is a memberUsername from token.');
-  
+
     const commentContent = plainFormData.commentContent;
     console.log(commentContent + ' is a commentContent.');
-  
+
     const customBody = {
       "artworkId": `${artworkId}`,
       "memberId": `${userId}`,
       "memberUsername": `${commentUsername}`,
       "commentContent": `${commentContent}`
     };
-  
-  
+
+
     console.log(JSON.stringify(customBody) + ' is the customBody');
-  
+
     const fetchOptions = {
       method: 'POST',
       headers: {
@@ -76,7 +76,7 @@ if (sessionStorage.jwtToken) {
       },
       body: JSON.stringify(customBody),
     };
-  
+
     if (commentContent !== "") {
       fetch(url, fetchOptions)
         .then((response) => {
@@ -98,7 +98,7 @@ if (sessionStorage.jwtToken) {
     }
   } // 댓글 작성 끝
 
-  
+
 } else {
 
   console.log('not logged in');
@@ -107,7 +107,7 @@ if (sessionStorage.jwtToken) {
   submitButton.addEventListener('click', handleClick);
 
   function handleClick(event) {
-    
+
     event.preventDefault();
     alert('로그인 후 사용해주세요.');
 
@@ -152,6 +152,7 @@ function commentList(data) {
     const contentWrapper = document.createElement('div');
     const content = document.createElement('p');
     //         버튼
+    const commentModifyButton = document.createElement('button');
     const commentDeleteButton = document.createElement('button');
 
     const commentId = data[i].commentId;
@@ -172,6 +173,7 @@ function commentList(data) {
     memberImageWrapper.className = 'member-image-container';
     memberImg.className = 'member-image';
     memberImg.src = memberImage; // memberImage used.
+    rightSide.id = `commentFocus${commentId}`
     rightSide.style.flex = '1';
     writerAnchor.innerHTML = `${memberUsername}`; // memberUsername used.
     writerAnchor.href = `/member/${commentMemberId}`; // commentMemberId used.
@@ -179,6 +181,10 @@ function commentList(data) {
     writerDate.innerHTML = commentUploadDate; // cUploadDate used.
     writerDate.style.marginLeft = '1.5rem';
     content.innerHTML = `${commentContent}`; // commentContent used.
+
+    commentModifyButton.id = `commentModifyButton${commentId}`;
+    commentModifyButton.innerHTML = '수정';
+    commentModifyButton.value = commentId;
 
     commentDeleteButton.id = `commentDeleteButton${commentId}`;
     commentDeleteButton.type = 'submit';
@@ -191,6 +197,7 @@ function commentList(data) {
     memberImageWrapper.appendChild(memberImg);
     rightSide.appendChild(writerAndDate);
     rightSide.appendChild(contentWrapper);
+    rightSide.appendChild(commentModifyButton);
     rightSide.appendChild(commentDeleteButton);
     writerAndDate.appendChild(writerSpan);
     writerAndDate.appendChild(writerDate);
@@ -198,14 +205,152 @@ function commentList(data) {
     contentWrapper.appendChild(content);
 
     if (commentMemberId != userId) {
+
+      commentModifyButton.style.display = 'none';
       commentDeleteButton.style.display = 'none';
+
     }
 
+    commentModifyButton.addEventListener('click', loadOriginalComment);
     commentDeleteButton.addEventListener('click', handleRemoveComment);
 
   }
 
 } // 댓글 조회 반복 메서드 종료
+
+// 수정 대상 댓글 하나를 가져오는 메서드
+function getTargetComment(commentId) {
+  const url = `/comment/modify/${commentId}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.commentContent);
+      const textarea = document.querySelector('#modifiedCommentContent');
+      textarea.value = data.commentContent;
+    })
+    .catch((e) => console.error(e));
+
+}
+
+// 댓글 수정 버튼을 눌렀을 때, 수정 전 댓글 내용을 가진 텍스트 에이리어를 나타나게 하고, 수정이 가능해져야 함.
+function loadOriginalComment(event) {
+  const commentId = event.currentTarget.value;
+  event.stopPropagation();
+  console.log(event.currentTarget);
+  console.log(event.currentTarget.value);
+
+  console.log(commentId + ' is a variable');
+
+  const commentModifyButton = document.querySelector(`#commentModifyButton${commentId}`);
+  const commentDeleteButton = document.querySelector(`#commentDeleteButton${commentId}`);
+  const targetRightSide = document.querySelector(`#commentFocus${commentId}`);
+
+  commentModifyButton.style.display = 'none';
+  commentDeleteButton.style.display = 'none';
+
+  const form = document.createElement('form');
+  const createModifyTextarea = document.createElement('textarea');
+  const modifyFetchButton = document.createElement('button');
+  const modifyCancelButton = document.createElement('button');
+
+  createModifyTextarea.id = 'modifiedCommentContent'; // 사용하지 않으면 해당 행 삭제.
+  createModifyTextarea.name = 'commentContent';
+  getTargetComment(commentId); // 생성된 textarea 에 기존의 댓글 내용 가져옴.
+  modifyFetchButton.id = `modifyFetchButton${commentId}`;
+  modifyFetchButton.innerHTML = '수정';
+  modifyFetchButton.type = 'submit';
+
+  modifiedCommentContent = createModifyTextarea.value;
+
+  modifyCancelButton.id = `modifyCancelButton${commentId}`;
+  modifyCancelButton.innerHTML = '취소'; // 취소 시, 컨펌 받고, 새로고침 ?
+  modifyCancelButton.type = 'button';
+
+  targetRightSide.appendChild(form);
+  form.appendChild(createModifyTextarea);
+  form.appendChild(modifyFetchButton);
+  targetRightSide.appendChild(modifyCancelButton);
+
+  form.addEventListener('submit', () => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData(form);
+      handleModifyFetch({event, commentId, formData})
+
+    } catch {
+      alert('something went wrong...');
+      console.error(error);
+    }
+  });
+  modifyCancelButton.addEventListener('click', () => {
+    handleModifyCancel(event)
+  });
+
+}
+
+function handleModifyFetch({event, commentId, formData}) {
+  event.preventDefault();
+  
+  const plainFormData = Object.fromEntries(formData.entries());
+
+  const modifiedCommentContent = plainFormData.commentContent;
+
+  console.log(event);
+  console.log(modifiedCommentContent);
+  const url = `/comment/${commentId}/modify`
+  const fetchOptions = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'commentId': `${commentId}`,
+      'commentContent': `${modifiedCommentContent}`,
+    }),
+  }
+
+  fetch(url, fetchOptions)
+    .then((response) => {
+      if (response.status === 200) {
+        alert('댓글을 수정했습니다.');
+        // window.location.reload();
+      } else {
+        alert('댓글 수정 중 문제가 발생했습니다. 다시 시도해주세요.');
+      }
+    })
+    .catch((e) => console.error(e));
+}
+
+function handleModifyCancel(event) {
+  const confirmation = confirm('댓글 수정을 취소하시겠습니까? 수정 중인 내용을 저장하지 않습니다.');
+  console.log(event);
+  if (confirmation) {
+    window.location.reload();
+  }
+}
+
+
+function modifyComment(commentId) {
+  const confirmation = confirm('댓글을 삭제하시겠습니까? 삭제된 댓글은 되돌릴 수 없습니다.');
+  if (confirmation) {
+    fetch(`/comment/${commentId}`, {
+      method: 'DELETE'
+    })
+      .then(response => {
+        console.log(response.status);
+        if (response.status == 200) {
+          alert('댓글이 삭제 됐습니다.')
+        } else {
+          alert('댓글 삭제 중 문제가 발생 했습니다. 다시 시도해주세요.')
+        }
+      })
+      .then(() => window.location.reload())
+      .catch(e => console.error(e));
+  }
+}
+// 작업 중 ...
 
 function handleRemoveComment(event) {
   const commentId = event.currentTarget.id.substring(19);
