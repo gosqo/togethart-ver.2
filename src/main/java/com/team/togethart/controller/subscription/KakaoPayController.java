@@ -11,9 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import java.util.UUID;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -21,30 +18,26 @@ import java.util.UUID;
 public class KakaoPayController {
     private final KakaoPayService kakaoPayService;
 
+
     @PostMapping("/ready")
-    public ResponseEntity readyToKakaoPay(@RequestParam String memberId, @RequestParam String itemName, @RequestParam int totalAmount, HttpSession httpSession) {
+    public ResponseEntity readyToKakaoPay(@RequestParam String memberId, @RequestParam String itemName, @RequestParam int totalAmount ) {
         KakaoPayRequest kakaoPayRequest = new KakaoPayRequest();
         kakaoPayRequest.setItemName(itemName);
         kakaoPayRequest.setMemberId(memberId);
         kakaoPayRequest.setTotalAmount(totalAmount);
-        String partnerOrderId = UUID.randomUUID().toString();
-        kakaoPayRequest.setPartnerOrderId(partnerOrderId);
-
-        httpSession.setAttribute("partner_order_id", kakaoPayRequest.getPartnerOrderId());
-        httpSession.setAttribute("partner_user_id", kakaoPayRequest.getMemberId());
 
 
-        return ResponseEntity.ok(kakaoPayService.kakaoPayReady(kakaoPayRequest));
+
+
+        return ResponseEntity.ok(kakaoPayService.kakaoPayReady());
     }
 
-    @PostMapping("/success")
-    public ResponseEntity afterPayRequest(@RequestParam("pg_token") String pgToken, HttpSession httpSession) {
-        String partnerOrderId = (String) httpSession.getAttribute("partner_order_id");
-        String partnerUserId = (String) httpSession.getAttribute("partner_user_id");
+    @GetMapping("/success")
+    public ResponseEntity afterPayRequest(@RequestParam("pg_token") String pgToken) {
 
-        KakaoApproveResponse kakaoApprove = kakaoPayService.ApproveResponse(partnerOrderId, partnerUserId, pgToken);
+        KakaoApproveResponse kakaoApprove = kakaoPayService.ApproveResponse(pgToken);
 
-        return ResponseEntity.ok(kakaoApprove);
+        return ResponseEntity.ok(kakaoPayService.ApproveResponse(pgToken));
     }
 
     @PostMapping("/refund")

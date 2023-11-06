@@ -89,38 +89,35 @@ document.addEventListener("DOMContentLoaded", async function () {
 
               extendCell.appendChild(expiredBtn);
             } else {
-             
+              // 구독 연장 버튼
               const extendBtn = document.createElement("button");
               extendBtn.textContent = "구독 연장";
               extendBtn.addEventListener("click", async function () {
-                sessionStorage.setItem("memberId", memberId);
-                const url = `/payment?target=${item.memberId}`;
-                window.location.href = url;
+                // "구독 연장" 버튼을 클릭했을 때 서버로 요청을 보냅니다.
+                try {
+                  const response = await fetch("/sub/extend", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      subscribeFrom: memberId,
+                      subscribeTo: item.memberId,
+                    }),
+                  });
 
-                // try {
-                //   const response = await fetch("/sub/extend", {
-                //     method: "POST",
-                //     headers: {
-                //       "Content-Type": "application/json",
-                //     },
-                //     body: JSON.stringify({
-                //       subscribeFrom: memberId,
-                //       subscribeTo: item.memberId,
-                //     }),
-                //   });
-
-                //   if (response.status === 200) {
-                //     alert("구독 기간을 연장했습니다.");
-                //     location.reload();
-                //   } else {
-                //     console.error("요청 실패: " + response.status);
-                //   }
-                // } catch (error) {
-                //   console.error("오류 발생: " + error.message);
-                // }
+                  if (response.status === 200) {
+                    alert("구독 기간을 연장했습니다.");
+                    location.reload();
+                  } else {
+                    console.error("요청 실패: " + response.status);
+                  }
+                } catch (error) {
+                  console.error("오류 발생: " + error.message);
+                }
               });
 
-               extendCell.appendChild(extendBtn);
+              extendCell.appendChild(extendBtn);
             }
           }
 

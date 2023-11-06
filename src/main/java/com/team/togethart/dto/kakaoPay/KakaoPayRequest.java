@@ -13,5 +13,4 @@ public class KakaoPayRequest {
     String memberId;
     String itemName;
     int totalAmount;
-    String partnerOrderId;
 }
