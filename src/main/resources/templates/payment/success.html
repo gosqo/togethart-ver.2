@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+  
+  <title>결제 완료</title>
+  
+  <script>
+    function showPopup() {
+      var popup = document.getElementById("popup");
+      popup.style.display = "block";
+    }
+
+    function closePopup() {
+      var popup = document.getElementById("popup");
+      popup.style.display = "none";
+    }
+
+    function redirectToSubscribeInfo() {
+      window.location.href = "/subscribeInfo";
+    }
+  </script>
+</head>
+<body>
+  
+  <div id="popup">
+    <h3>결제가 완료됐습니다</h3>
+    <button onclick="closePopup()">확인</button>
+  </div>
+  
+  <h1>결제가 완료되었습니다</h1>
+  <button onclick="showPopup()">팝업 열기</button>
+</body>
+</html>

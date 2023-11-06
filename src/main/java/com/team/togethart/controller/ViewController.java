@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ViewController {
@@ -159,4 +160,9 @@ public class ViewController {
         return "searchResult";
     }
 
+    @GetMapping("/payment")
+    public String payment() { return "payment/payment";}
+
+    @GetMapping("/payment/success")
+    private String success(@RequestParam("pg_token") String pgToken) {return "payment/success";}
 }
