@@ -259,7 +259,7 @@ function loadOriginalComment(event) {
   getTargetComment(commentId); // 생성된 textarea 에 기존의 댓글 내용 가져옴.
   modifyFetchButton.id = `modifyFetchButton${commentId}`;
   modifyFetchButton.innerHTML = '수정';
-  modifyFetchButton.type = 'submit';
+  modifyFetchButton.type = 'button';
 
   modifiedCommentContent = createModifyTextarea.value;
 
@@ -272,12 +272,13 @@ function loadOriginalComment(event) {
   form.appendChild(modifyFetchButton);
   targetRightSide.appendChild(modifyCancelButton);
 
-  form.addEventListener('submit', () => {
+  const commentModifyFetchButton = document.querySelector(`#modifyFetchButton${commentId}`);
+  commentModifyFetchButton.addEventListener('click', () => {
     event.preventDefault();
 
     try {
       const formData = new FormData(form);
-      handleModifyFetch({event, commentId, formData})
+      handleModifyFetch({ event, commentId, formData })
 
     } catch {
       alert('something went wrong...');
@@ -290,9 +291,9 @@ function loadOriginalComment(event) {
 
 }
 
-function handleModifyFetch({event, commentId, formData}) {
+function handleModifyFetch({ event, commentId, formData }) {
   event.preventDefault();
-  
+
   const plainFormData = Object.fromEntries(formData.entries());
 
   const modifiedCommentContent = plainFormData.commentContent;
@@ -313,9 +314,10 @@ function handleModifyFetch({event, commentId, formData}) {
 
   fetch(url, fetchOptions)
     .then((response) => {
+      console.log(response.status);
       if (response.status === 200) {
         alert('댓글을 수정했습니다.');
-        // window.location.reload();
+        window.location.reload();
       } else {
         alert('댓글 수정 중 문제가 발생했습니다. 다시 시도해주세요.');
       }
@@ -327,30 +329,29 @@ function handleModifyCancel(event) {
   const confirmation = confirm('댓글 수정을 취소하시겠습니까? 수정 중인 내용을 저장하지 않습니다.');
   console.log(event);
   if (confirmation) {
-    window.location.reload();
+    // window.location.reload();
   }
 }
 
 
-function modifyComment(commentId) {
-  const confirmation = confirm('댓글을 삭제하시겠습니까? 삭제된 댓글은 되돌릴 수 없습니다.');
-  if (confirmation) {
-    fetch(`/comment/${commentId}`, {
-      method: 'DELETE'
-    })
-      .then(response => {
-        console.log(response.status);
-        if (response.status == 200) {
-          alert('댓글이 삭제 됐습니다.')
-        } else {
-          alert('댓글 삭제 중 문제가 발생 했습니다. 다시 시도해주세요.')
-        }
-      })
-      .then(() => window.location.reload())
-      .catch(e => console.error(e));
-  }
-}
-// 작업 중 ...
+// function modifyComment(commentId) {
+//   const confirmation = confirm('댓글을 삭제하시겠습니까? 삭제된 댓글은 되돌릴 수 없습니다.');
+//   if (confirmation) {
+//     fetch(`/comment/${commentId}`, {
+//       method: 'DELETE'
+//     })
+//       .then(response => {
+//         console.log(response.status);
+//         if (response.status == 200) {
+//           alert('댓글이 삭제 됐습니다.')
+//         } else {
+//           alert('댓글 삭제 중 문제가 발생 했습니다. 다시 시도해주세요.')
+//         }
+//       })
+//       .then(() => window.location.reload())
+//       .catch(e => console.error(e));
+//   }
+// }
 
 function handleRemoveComment(event) {
   const commentId = event.currentTarget.id.substring(19);
