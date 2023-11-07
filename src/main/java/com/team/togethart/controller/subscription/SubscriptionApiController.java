@@ -51,19 +51,50 @@ public class SubscriptionApiController {
     }
 
     // 구독 연장
-    @PostMapping("/extend")
-    public ResponseEntity<String> extendSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
+    @PostMapping("/extend/12")
+    public ResponseEntity<String> twelveMonthExtendSub(@RequestBody SubscriptionDTO subscriptionDTO) {
         if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
             return ResponseEntity.badRequest().body("자기 자신에게 구독 연장신청을 할 수 없습니다.");
         }
-            subscriptionService.extendSubscription(subscriptionDTO);
+            subscriptionService.twelveMonthExtendSub(subscriptionDTO);
             return ResponseEntity.ok("구독 기간을 연장했습니다.");
 
     }
 
+    @PostMapping("/extend/1")
+    public ResponseEntity<String> oneMonthExtendSub(@RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
+            return ResponseEntity.badRequest().body("자기 자신에게 구독 연장신청을 할 수 없습니다.");
+        }
+        subscriptionService.oneMonthExtendSub(subscriptionDTO);
+        return ResponseEntity.ok("구독 기간을 연장했습니다.");
+
+    }
+
+    @PostMapping("/extend/3")
+    public ResponseEntity<String> threeMonthExtendSub(@RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
+            return ResponseEntity.badRequest().body("자기 자신에게 구독 연장신청을 할 수 없습니다.");
+        }
+        subscriptionService.threeMonthExtendSub(subscriptionDTO);
+        return ResponseEntity.ok("구독 기간을 연장했습니다.");
+
+    }
+    @PostMapping("/extend/6")
+    public ResponseEntity<String> sixMonthExtendSub(@RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
+            return ResponseEntity.badRequest().body("자기 자신에게 구독 연장신청을 할 수 없습니다.");
+        }
+        subscriptionService.sixMonthExtendSub(subscriptionDTO);
+        return ResponseEntity.ok("구독 기간을 연장했습니다.");
+
+    }
+
+    // 구독 연장 끝
+
     // 구독 재시작
-    @PostMapping("/resub")
-    public ResponseEntity<String> resubuser(@RequestBody SubscriptionDTO subscriptionDTO) {
+    @PostMapping("/resub/12")
+    public ResponseEntity<String> reSubTwelveMonth(@RequestBody SubscriptionDTO subscriptionDTO) {
         if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
             return ResponseEntity.badRequest().body("자기 자신을 재구독할 수 없습니다.");
         }
@@ -75,7 +106,7 @@ public class SubscriptionApiController {
 
         boolean isSubscriptionExpired = subscriptionService.isSubscriptionExpired(subscriptionDTO);
         if (isSubscriptionExpired) {
-            subscriptionService.resubuser(subscriptionDTO);
+            subscriptionService.reSubTwelveMonth(subscriptionDTO);
             return ResponseEntity.ok("구독을 다시 시작할게요 !");
         } else {
             return ResponseEntity.ok("아직 만료되지 않았습니다 ?");
@@ -84,6 +115,73 @@ public class SubscriptionApiController {
 
     }
 
+    @PostMapping("/resub/1")
+    public ResponseEntity<String> reSubOneMonth(@RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
+            return ResponseEntity.badRequest().body("자기 자신을 재구독할 수 없습니다.");
+        }
+
+        boolean isSubscriptions = subscriptionService.isSubscriptionExists(subscriptionDTO);
+        if (!isSubscriptions) {
+            return ResponseEntity.badRequest().body("구독을 시작해주세요 !");
+        }
+
+        boolean isSubscriptionExpired = subscriptionService.isSubscriptionExpired(subscriptionDTO);
+        if (isSubscriptionExpired) {
+            subscriptionService.reSubOneMonth(subscriptionDTO);
+            return ResponseEntity.ok("구독을 다시 시작할게요 !");
+        } else {
+            return ResponseEntity.ok("아직 만료되지 않았습니다 ?");
+        }
+
+
+    }
+
+    @PostMapping("/resub/3")
+    public ResponseEntity<String> reSubThreeMonth(@RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
+            return ResponseEntity.badRequest().body("자기 자신을 재구독할 수 없습니다.");
+        }
+
+        boolean isSubscriptions = subscriptionService.isSubscriptionExists(subscriptionDTO);
+        if (!isSubscriptions) {
+            return ResponseEntity.badRequest().body("구독을 시작해주세요 !");
+        }
+
+        boolean isSubscriptionExpired = subscriptionService.isSubscriptionExpired(subscriptionDTO);
+        if (isSubscriptionExpired) {
+            subscriptionService.reSubThreeMonth(subscriptionDTO);
+            return ResponseEntity.ok("구독을 다시 시작할게요 !");
+        } else {
+            return ResponseEntity.ok("아직 만료되지 않았습니다 ?");
+        }
+
+
+    }
+
+    @PostMapping("/resub/6")
+    public ResponseEntity<String> reSubSixMonth(@RequestBody SubscriptionDTO subscriptionDTO) {
+        if (subscriptionDTO.getSubscribeFrom().equals(subscriptionDTO.getSubscribeTo())) {
+            return ResponseEntity.badRequest().body("자기 자신을 재구독할 수 없습니다.");
+        }
+
+        boolean isSubscriptions = subscriptionService.isSubscriptionExists(subscriptionDTO);
+        if (!isSubscriptions) {
+            return ResponseEntity.badRequest().body("구독을 시작해주세요 !");
+        }
+
+        boolean isSubscriptionExpired = subscriptionService.isSubscriptionExpired(subscriptionDTO);
+        if (isSubscriptionExpired) {
+            subscriptionService.reSubSixMonth(subscriptionDTO);
+            return ResponseEntity.ok("구독을 다시 시작할게요 !");
+        } else {
+            return ResponseEntity.ok("아직 만료되지 않았습니다 ?");
+        }
+
+
+    }
+
+    // 구독 재시작 끝
     
     // 구독 수동 취소 // 작동
     @PostMapping("/deletesub")

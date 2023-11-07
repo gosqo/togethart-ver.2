@@ -21,7 +21,7 @@
     </insert>
 
     <!-- 구독 연장 해주기 -->
-    <update id="extendSubscription" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+    <update id="oneMonthExtendSub" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
         UPDATE subscription
         SET expire_date = DATE_ADD(expire_date, INTERVAL 1 MONTH)
         WHERE subscribe_from = #{subscribeFrom}
@@ -29,8 +29,33 @@
         AND expire_date &gt;= NOW();
     </update>
 
+    <update id="threeMonthExtendSub" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET expire_date = DATE_ADD(expire_date, INTERVAL 3 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+        AND expire_date &gt;= NOW();
+    </update>
+
+    <update id="sixMonthExtendSub" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET expire_date = DATE_ADD(expire_date, INTERVAL 6 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+        AND expire_date &gt;= NOW();
+    </update>
+
+    <update id="twelveMonthExtendSub" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET expire_date = DATE_ADD(expire_date, INTERVAL 12 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+        AND expire_date &gt;= NOW();
+    </update>
+    <!--구독 연장 끝-->
+
     <!-- 구독 재시작 -->
-    <update id="resubuser" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+    <update id="reSubOneMonth" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
         UPDATE subscription
         SET
         start_date = NOW(),
@@ -38,6 +63,35 @@
         WHERE subscribe_from = #{subscribeFrom}
         AND subscribe_to = #{subscribeTo}
     </update>
+
+    <update id="reSubThreeMonth" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET
+        start_date = NOW(),
+        expire_date = DATE_ADD(NOW(), INTERVAL 3 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+    </update>
+
+    <update id="reSubSixMonth" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET
+        start_date = NOW(),
+        expire_date = DATE_ADD(NOW(), INTERVAL 6 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+    </update>
+
+    <update id="reSubTwelveMonth" parameterType="com.team.togethart.dto.subscription.SubscriptionDTO">
+        UPDATE subscription
+        SET
+        start_date = NOW(),
+        expire_date = DATE_ADD(NOW(), INTERVAL 12 MONTH)
+        WHERE subscribe_from = #{subscribeFrom}
+        AND subscribe_to = #{subscribeTo}
+    </update>
+
+    <!-- 구독 재시작 끝-->
 
 
     <!-- 구독 관계인지 검 증-->

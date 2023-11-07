@@ -19,15 +19,44 @@ public class SubscriptionService {
 
         subscriptionMapper.insertSubscription(subscriptionDTO);
     }
+    
+    
+    // 구독 재시작 1 3 6 12
+    public void reSubOneMonth(SubscriptionDTO subscriptionDTO) {
 
-    public void resubuser(SubscriptionDTO subscriptionDTO) {
-
-        subscriptionMapper.resubuser(subscriptionDTO);
+        subscriptionMapper.reSubOneMonth(subscriptionDTO);
     }
-    public void extendSubscription(SubscriptionDTO subscriptionDTO) {
-        subscriptionMapper.extendSubscription(subscriptionDTO);
+
+    public void reSubThreeMonth(SubscriptionDTO subscriptionDTO) {
+
+        subscriptionMapper.reSubThreeMonth(subscriptionDTO);
     }
 
+    public void reSubSixMonth(SubscriptionDTO subscriptionDTO) {
+
+        subscriptionMapper.reSubSixMonth(subscriptionDTO);
+    }
+
+    public void reSubTwelveMonth(SubscriptionDTO subscriptionDTO) {
+
+        subscriptionMapper.reSubTwelveMonth(subscriptionDTO);
+    }
+    /// 구독 재시작 끝
+    
+    // 구독 기간 1개월 3개월 6개월 12개월 늘려주기
+    public void oneMonthExtendSub(SubscriptionDTO subscriptionDTO) {
+        subscriptionMapper.oneMonthExtendSub(subscriptionDTO);
+    }
+    public void threeMonthExtendSub(SubscriptionDTO subscriptionDTO) {
+        subscriptionMapper.threeMonthExtendSub(subscriptionDTO);
+    }
+    public void sixMonthExtendSub(SubscriptionDTO subscriptionDTO) {
+        subscriptionMapper.sixMonthExtendSub(subscriptionDTO);
+    }
+    public void twelveMonthExtendSub(SubscriptionDTO subscriptionDTO) {
+        subscriptionMapper.twelveMonthExtendSub(subscriptionDTO);
+    }
+     // 구독기간 연장 끝
     
     // 구독정보 존재하는지 검사하는 메서드에 씀
     public SubscriptionDTO getSubscription(SubscriptionDTO subscriptionDTO) {
