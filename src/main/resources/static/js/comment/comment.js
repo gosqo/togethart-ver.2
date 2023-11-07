@@ -329,7 +329,7 @@ function handleModifyCancel(event) {
   const confirmation = confirm('댓글 수정을 취소하시겠습니까? 수정 중인 내용을 저장하지 않습니다.');
   console.log(event);
   if (confirmation) {
-    // window.location.reload();
+    window.location.reload();
   }
 }
 

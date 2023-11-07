@@ -4,7 +4,7 @@ import com.team.togethart.dto.artwork.ArtworkViewResponse;
 import com.team.togethart.dto.kakaoPay.KakaoApproveResponse;
 import com.team.togethart.dto.myPage.MyPageMemberInfoResponse;
 import com.team.togethart.service.ArtworkService;
-import com.team.togethart.service.KakaoPayService;
+//import com.team.togethart.service.KakaoPayService;
 import com.team.togethart.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +22,8 @@ public class ViewController {
     @Autowired
     MyPageService myPageService;
 
-    @Autowired
-    KakaoPayService kakaoPayService;
+//    @Autowired
+//    KakaoPayService kakaoPayService;
 
 //    @GetMapping("/")
 //    public String index() {
@@ -171,11 +171,11 @@ public class ViewController {
     @GetMapping("/resub")
     public String resub() { return "payment/resub";}
 
-    @GetMapping("/payment/success")
-    public void displayPaymentSuccess(@RequestParam("pg_token") String pgToken, Model model, HttpSession httpSession) {
-       model.addAttribute("info", kakaoPayService.ApproveResponse(pgToken,httpSession));
-
-    }
+//    @GetMapping("/payment/success")
+//    public void displayPaymentSuccess(@RequestParam("pg_token") String pgToken, Model model, HttpSession httpSession) {
+//       model.addAttribute("info", kakaoPayService.ApproveResponse(pgToken,httpSession));
+//
+//    }
 
 
     }
