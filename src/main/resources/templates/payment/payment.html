@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+  <style>
+   
+    .subscription-options {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    .subscription-text {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .subscription-button {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .subscription-button button {
+      width: 200px;
+      height: 200px;
+      font-size: 18px;
+    }
+  </style>
+  <title>구독 결제</title>
+  <script type="text/javascript" th:src="@{/js/payment/payment.js}"></script>
+</head>
+<body>
+  <!-- 네비 -->
+  <div id="nav-wrapper" th:replace="~{nav :: nav}"></div>
+  <!-- 상단, 배너 영역 -->
+ 
+  <!-- 구독 버튼 영역 -->
+  <div class="subscription-options">
+    <h2 class="subscription-text">구독 옵션 선택</h2>
+    <div class="subscription-button">
+      <button id="btn-1-month">1 개월 구독</button>
+      <button id="btn-3-months">3 개월 구독</button>
+      <button id="btn-6-months">6 개월 구독</button>
+      <button id="btn-12-months">12 개월 구독</button>
+    </div>
+  </div>
+  <!-- 구독 버튼 영역 -->
+
+  <script src="/js/nav.js"></script>
+</body>
+</html>
