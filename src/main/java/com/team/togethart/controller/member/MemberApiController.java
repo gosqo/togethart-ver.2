@@ -3,6 +3,7 @@ package com.team.togethart.controller.member;
 import com.team.togethart.config.jwt.JwtUtils;
 import com.team.togethart.dto.member.MemberAddRequest;
 import com.team.togethart.dto.member.MemberPwUpdateRequest;
+import com.team.togethart.dto.member.MemberTest;
 import com.team.togethart.dto.member.MemberUpdateRequest;
 import com.team.togethart.repository.member.MemberMapper;
 import com.team.togethart.service.MemberService;
@@ -33,15 +34,17 @@ public class MemberApiController {
 
     // 회원 정보 수정 처리
     @PostMapping("/profile/modify")
-    public ResponseEntity<?> updateCommonMember(@RequestBody MemberUpdateRequest memberUpdateRequest
-            , @RequestPart(value = "imgFile", required = false) MultipartFile imgFile) throws IOException {
-        if(imgFile == null){
-            System.out.println(memberUpdateRequest);
-            memberService.modifyCommonWithoutImage(memberUpdateRequest);
-        }else{
-            System.out.println(memberUpdateRequest);
-            memberService.modifyCommon(memberUpdateRequest, imgFile);
-        }
+    public ResponseEntity<?> updateCommonMember(@RequestBody MemberUpdateRequest memberUpdateRequest)
+             {//@RequestPart(value = "imgFile", required = false) MultipartFile imgFile) throws IOException
+//        if(imgFile == null){
+//            System.out.println(memberUpdateRequest);
+//            memberService.modifyCommonWithoutImage(memberUpdateRequest);
+//        }else{
+//            System.out.println(memberUpdateRequest);
+//            memberService.modifyCommon(memberUpdateRequest, imgFile);
+//        }
+        memberService.modifyCommonWithoutImage(memberUpdateRequest);
+
         return ResponseEntity.ok().build();
     }
 

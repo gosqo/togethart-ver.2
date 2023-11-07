@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.togethart.repository.artwork.UploadMapper">
+
     <insert id="upload" parameterType="com.team.togethart.dto.artwork.UploadDTO">
-        INSERT INTO upload_file
+        INSERT INTO UPLOAD_FILE
         (
         PATHNAME,
         FILENAME,
@@ -24,10 +25,40 @@
         )
     </insert>
 
+    <update id="upload2" parameterType="com.team.togethart.dto.member.MemberUpdateRequest">
+        UPDATE
+        togetharttest.member
+        SET
+        member_image
+        = #{memberImage}
+        ,member_intro
+        = #{memberIntro}
+        WHERE
+        member_email
+        = #{memberEmail};
+    </update>
+
+
+    <update id="upload3" parameterType="com.team.togethart.dto.member.MemberUpdateRequest">
+        UPDATE
+        togetharttest.member
+        SET
+        member_image
+        = #{memberImage}
+        WHERE
+        member_email
+        = #{memberEmail};
+    </update>
+
+
+
+
+
     <select id="selectArtworkId" resultType="java.lang.Long">
         SELECT artwork_id
           FROM artwork
          ORDER BY artwork_id DESC
          LIMIT 1
     </select>
+
 </mapper>

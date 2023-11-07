@@ -12,26 +12,42 @@
 
   <div class="input-container">
     <!-- 회원 수정폼 -->
-    <form id="form" method="POST">
+    <form id="form" method="POST" encType="multipart/form-data">
       <fieldset>
         <legend style="text-align: center;">회원정보수정</legend>
     <!-- 이메일  -->
     <div class="form-group">
-      <label for="email" class="form-label mt-4"></label>
-      <input type="hidden" class="form-control" name="memberEmail" id="memberEmail" value="${login.memberEmail}">
+      <label for="email" class="form-label mt-4">이메일</label>
+      <input type="email" class="form-control" name="memberEmail" id="memberEmail" readonly>
+    </div>
+    <!-- 유저네임 -->
+    <div class="form-group">
+      <label for="text" class="form-label mt-4">닉네임</label>
+      <input type="text" class="form-control" name="Username" id="Username" readonly>
+    </div>
+    <!-- 파일 업로드 -->
+    <div class="form-group">
+      <label for="email" class="form-label mt-4" enctype="multipart/form-data">프로필 변경</label>
+    <input type="file" id="memberImage" name="memberImage" accept='image/*'/>
+    <img id="previewImg" width="150" alt="이미지 영역"/>
+
+    <br>
+    <!-- <button class="btn btn-success" style="width:100%; margin-top:28px;"
+                                id="nidBtn"
+                                type="button" onclick="openNidPopup()">변경하기
+                        </button>
+                        34~38 팝업메소드 -->
     </div>
 		<!-- 자기소개 -->
 		<div class="form-group">
 			<label for="memberIntro" class="form-label mt-4">자기소개</label>
 			<textarea name="memberIntro" cols="40" rows="8" ></textarea>
 		  </div>
-		  
       <a th:href="@{/remove}">회원탈퇴</a> / 
       <a th:href="@{/profile/update}">비밀번호 변경</a>
       </fieldset>
-      <input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정" formaction="/profile/modify" ></button>
+      <input type="submit" class="btn btn-success" style="width:100%; margin-top:28px;"  value="수정"></button>
     </form>
-
   </div>
   <script th:src="@{/js/member/modify.js}">
   </script>
