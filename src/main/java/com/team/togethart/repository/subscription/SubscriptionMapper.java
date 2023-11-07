@@ -11,9 +11,25 @@ public interface SubscriptionMapper {
 
     void insertSubscription(SubscriptionDTO subscriptionDTO);
 
-    void extendSubscription(SubscriptionDTO subscriptionDTO);
+    // 구독 연장 1 3 6 12
+    void oneMonthExtendSub(SubscriptionDTO subscriptionDTO);
+    void threeMonthExtendSub(SubscriptionDTO subscriptionDTO);
+    void sixMonthExtendSub(SubscriptionDTO subscriptionDTO);
+    void twelveMonthExtendSub(SubscriptionDTO subscriptionDTO);
+    
+    // 구독 연장 끝
 
-    void resubuser(SubscriptionDTO subscriptionDTO);
+
+    // 구독 재시작 1 3 6 12
+    void reSubOneMonth(SubscriptionDTO subscriptionDTO);
+
+    void reSubThreeMonth(SubscriptionDTO subscriptionDTO);
+
+    void reSubSixMonth(SubscriptionDTO subscriptionDTO);
+
+    void reSubTwelveMonth(SubscriptionDTO subscriptionDTO);
+
+    // 구독 재시작 끝
 
     long getSubscription(SubscriptionDTO subscriptionDTO);
 
