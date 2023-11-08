@@ -2,6 +2,11 @@ const artworkId = document.querySelector('#artwork-id').value;
 
 if (sessionStorage.jwtToken) {
 
+  const goBack = document.querySelector('#go-back');
+  goBack.addEventListener('click', () => {
+    history.back();
+  });
+
   const form = document.querySelector('#modify-artwork-form');
   const cancelModifyArtworkButton = document.querySelector('#cancel-modify-artwork-button')
 
