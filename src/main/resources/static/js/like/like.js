@@ -29,7 +29,7 @@
 // unlike();
 
 // 해당 artwork 업로드한 멤버 아이디 추출.
-const uploader = document.querySelector('#uploader').value;
+const uploader = parseInt(document.querySelector('#uploader').value);
 console.log(uploader + ' is a uploader Id');
 
 // 해당 artworkId 추출.

@@ -69,7 +69,8 @@ public class ViewController {
 
 //     ("/artwork/{artworkId}") 로 요청 들어오면?
     @GetMapping("/artwork/{artworkId}")
-    public String artworkView(@PathVariable("artworkId") Long artworkId, Model model) {
+    public String artworkView(
+            @PathVariable("artworkId") Long artworkId, Model model) {
 
             // artworkId 를 통해 DB table 'artwork' 에서 해당 레코드 가져오기.?
         ArtworkViewResponse artworkViewResponse = artworkService.findArtwork(artworkId);
@@ -77,6 +78,16 @@ public class ViewController {
 
         return "artwork/artworkView";
 
+    }
+
+    @GetMapping("/artwork/{artworkId}/modify")
+    public String artworkModify(
+            @PathVariable("artworkId") Long artworkId, Model model) {
+
+        ArtworkViewResponse artworkViewResponse = artworkService.findArtwork(artworkId);
+        model.addAttribute("artwork", artworkViewResponse);
+
+        return "artwork/modifyArtwork";
     }
 
     // 마이 페이지

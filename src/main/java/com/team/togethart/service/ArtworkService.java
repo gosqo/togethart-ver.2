@@ -1,6 +1,7 @@
 package com.team.togethart.service;
 
 import com.team.togethart.dto.artwork.ArtworkDeleteRequest;
+import com.team.togethart.dto.artwork.ArtworkUpdateRequest;
 import com.team.togethart.dto.artwork.ArtworkViewResponse;
 import com.team.togethart.repository.artwork.ArtworkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +42,12 @@ public class ArtworkService {
     }
 
 
+    public int modifyArtwork(ArtworkUpdateRequest artworkUpdateRequest) {
+
+        int updateCount = artworkMapper.updateArtwork(artworkUpdateRequest);
+
+        return updateCount == 1
+                ? 1
+                : 0;
+    }
 }

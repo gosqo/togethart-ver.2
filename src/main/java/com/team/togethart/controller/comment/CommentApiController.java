@@ -67,7 +67,7 @@ public class CommentApiController {
                     .body("Bad Request.");
     }
 
-    @DeleteMapping("comment/{commentId}")
+    @DeleteMapping("/comment/{commentId}")
     public ResponseEntity<Object> commentRemove(
             @PathVariable("commentId") Long commentId) {
 
