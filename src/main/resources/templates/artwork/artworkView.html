@@ -41,21 +41,6 @@
           </button>
         </div>
       </div>
-
-      <!-- <div style="display: flex; justify-content: space-between;">
-        <div>
-          <h2 id="artwork-title" style="margin: 1.5rem auto;">hello?</h2>
-        </div>
-        <div style="align-self: center;">
-          <button id="modify-artwork-button" class="btn btn-outline-success btn-sm" style="margin-right: .5rem;">
-            <a href="#">작품 수정</a>
-          </button>
-          <button id="delete-artwork-button" class="btn btn-outline-success btn-sm">
-            <a href="#">작품 삭제</a>
-          </button>
-        </div>
-      </div> -->
-
       <!-- 멤버 프로필  -->
       <div class="member-profile">
         <!-- 멤버 프로필 이미지 -->
@@ -69,7 +54,6 @@
           <a id="member-profile" th:href="@{/member/} + ${artwork.memberId}">
             <h5 style="margin-bottom: .1rem;" th:text="${artwork.memberUsername}">회원 닉네임 (유저네임)</h5>
           </a>
-
         </div>
         <!-- 팔로우 버튼 -->
         <div class="follow-btn">
@@ -86,18 +70,12 @@
             <p>이미 구독 중인 회원입니다</p>
           </div>
         </div>
-        <!-- 전유영 수정 -->
-        <!-- <div class="follow-btn" style="text-align: right; float: right;">
-          <button id="delete-artwork-button" class="red-btn">
-            <a href="#">작품 삭제</a>
-          </button>
-        </div> -->
       </div>
 
       <!-- 좋아요, 조회수, 업로드 날짜 -->
       <div>
         <!-- 좋아요 -->
-        <input id="like-button" type="button"></input>
+        <input id="like-button" type="button" class="btn btn-success btn-sm" style="margin-right: .5rem;"></input>
         <span id="likeCount"></span>
         <!-- 조회수 -->
         <span id="viewCount" style="margin-left:.5rem;" th:text="${artwork.viewCount} + ' 조회'"></span>
@@ -127,9 +105,9 @@
         <textarea class="form-control" id="comment-content" name="commentContent" rows="3"
           style="white-space: pre-wrap"></textarea>
       </div>
-      <button id="submit-button" class="btn btn-success" type="submit"
-        style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글
-        작성</button>
+      <div style="display: flex; justify-content: end;">
+        <button id="submit-button" class="btn btn-success" type="submit">댓글 작성</button>
+      </div>
     </form>
 
     <!-- 댓글 불러오기 -->

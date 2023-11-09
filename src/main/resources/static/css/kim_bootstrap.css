@@ -175,11 +175,12 @@
 }
 
 .comment-form {
-  display: flex;
+  /* display: flex; */
 }
 
 .comment-textarea {
-  width: 80%;
+  width: -webkit-fill-available;
+  margin-bottom: 1rem;
 }
 
 .input-container {
