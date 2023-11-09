@@ -28,15 +28,34 @@
     <div class="artwork-data">
 
       <!-- 작품 타이틀 -->
-      <h2 id="artwork-title" style="margin-top: 1.5rem;" th:text="${artwork.artworkTitle}"></h2>
-      <div class="follow-btn" style="text-align: right; float: right;">
-        <button id="modify-artwork-button" class="red-btn" style="margin-right: 1rem;">
-          <a href="#">작품 수정</a>
-        </button>
-        <button id="delete-artwork-button" class="red-btn">
-          <a href="#">작품 삭제</a>
-        </button>
+      <div style="display:flex; justify-content: space-between;">
+        <div>
+          <h2 id="artwork-title" style="margin: 1.5rem auto;" th:text="${artwork.artworkTitle}"></h2>
+        </div>
+        <div style="align-self: center; display: flex;">
+          <button id="modify-artwork-button" class="btn btn-outline-success btn-sm" style="margin-right: .5rem;">
+            작품 수정
+          </button>
+          <button id="delete-artwork-button" class="btn btn-outline-success btn-sm">
+            작품 삭제
+          </button>
+        </div>
       </div>
+
+      <!-- <div style="display: flex; justify-content: space-between;">
+        <div>
+          <h2 id="artwork-title" style="margin: 1.5rem auto;">hello?</h2>
+        </div>
+        <div style="align-self: center;">
+          <button id="modify-artwork-button" class="btn btn-outline-success btn-sm" style="margin-right: .5rem;">
+            <a href="#">작품 수정</a>
+          </button>
+          <button id="delete-artwork-button" class="btn btn-outline-success btn-sm">
+            <a href="#">작품 삭제</a>
+          </button>
+        </div>
+      </div> -->
+
       <!-- 멤버 프로필  -->
       <div class="member-profile">
         <!-- 멤버 프로필 이미지 -->
@@ -89,8 +108,8 @@
       <!-- 작품이 속한 카테고리 -->
       <!-- <div class="artwork-category-container">
         <span>카테고리 : -->
-          <!-- 버튼 클릭 시 해당 카테고리 갤러리로 이동 -->
-          <!-- <input type="button" class="btn btn-success" value="categoryName"></input>
+      <!-- 버튼 클릭 시 해당 카테고리 갤러리로 이동 -->
+      <!-- <input type="button" class="btn btn-success" value="categoryName"></input>
         </span>
       </div> -->
 
@@ -105,9 +124,11 @@
     <form id="comment-form" class="comment-form">
       <div class="form-group comment-textarea">
         <label for="commentContent" class="form-label">댓글</label>
-        <textarea class="form-control" id="comment-content" name="commentContent" rows="3" style="white-space: pre-wrap"></textarea>
+        <textarea class="form-control" id="comment-content" name="commentContent" rows="3"
+          style="white-space: pre-wrap"></textarea>
       </div>
-      <button id="submit-button" class="btn btn-success" type="submit" style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글
+      <button id="submit-button" class="btn btn-success" type="submit"
+        style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글
         작성</button>
     </form>
 
