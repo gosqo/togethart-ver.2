@@ -181,6 +181,7 @@ function commentList(data) {
     writerDate.innerHTML = commentUploadDate; // cUploadDate used.
     writerDate.style.marginLeft = '1.5rem';
     content.innerHTML = `${commentContent}`; // commentContent used.
+    content.style.whiteSpace = 'pre-wrap';
 
     commentModifyButton.id = `commentModifyButton${commentId}`;
     commentModifyButton.innerHTML = '수정';

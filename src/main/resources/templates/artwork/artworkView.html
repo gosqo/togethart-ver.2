@@ -40,7 +40,6 @@
       <!-- 멤버 프로필  -->
       <div class="member-profile">
         <!-- 멤버 프로필 이미지 -->
-
         <div class="member-image-container">
           <a id="member-profile" th:href="@{/member/} + ${artwork.memberId}">
             <img id="member-image" class="member-image" th:src="${artwork.memberImage}" alt="member-profile-image">
@@ -96,7 +95,7 @@
       </div> -->
 
       <!-- 작품 설명 -->
-      <div class="artwork-description" th:text="${artwork.artworkDescription}"></div>
+      <div class="artwork-description" th:text="${artwork.artworkDescription}" style="white-space: pre-wrap;"></div>
     </div>
   </div>
 
@@ -106,7 +105,7 @@
     <form id="comment-form" class="comment-form">
       <div class="form-group comment-textarea">
         <label for="commentContent" class="form-label">댓글</label>
-        <textarea class="form-control" id="comment-content" name="commentContent" rows="3"></textarea>
+        <textarea class="form-control" id="comment-content" name="commentContent" rows="3" style="white-space: pre-wrap"></textarea>
       </div>
       <button id="submit-button" class="btn btn-success" type="submit" style="height: 3rem; margin-top: auto; margin-left: 1.5rem">댓글
         작성</button>
