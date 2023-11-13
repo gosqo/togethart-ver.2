@@ -1,6 +1,11 @@
 
 window.addEventListener('load', () => {
   getMemberUsername();
+    const popupLayer = document.querySelector('.popup_layer');
+    const popupDimmed = document.querySelector('.popup_dimmed');
+
+    popupLayer.style.display = 'none';
+    popupDimmed.style.display = 'none';
 })
 
 function getMemberUsername() {
@@ -16,7 +21,6 @@ function getMemberUsername() {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       memberUsername.innerHTML = data.memberUsername;
       if (data.memberImage) {
         memberImage.src = data.memberImage;
@@ -37,25 +41,79 @@ if (targetMemberId) {
     .then((response) => response.json())
     .then((count) => {
       const countFollowTo = document.getElementById("count-follow-to");
-      countFollowTo.textContent = `팔로워 : ${count}`;
-      console.log(count);
+        countFollowTo.innerHTML = `<a href="javascript:void(0);" style="text-decoration: none; color: inherit;">팔로워 : ${count}</a>`;
+        countFollowTo.style.cursor = "pointer";
+        countFollowTo.onclick = async function () {
+            // 나를 팔로우 한 사람들 리스트
+            try {
+
+                const response = await fetch("/follow/followto/" + targetMemberId);
+                const usernames = await response.json();
+                const popupContent = usernames.map((username) => `<p>${username}</p>`).join('');
+
+                const popupLayer = document.querySelector('.popup_layer');
+                const popupDimmed = document.querySelector('.popup_dimmed');
+                const textArea = document.querySelector('.text_area');
+
+                textArea.innerHTML = popupContent;
+                popupLayer.style.display = 'block';
+                popupDimmed.style.display = 'block';
+            } catch (error) {
+                console.error("오류 발생:", error);
+            }
+
+        };
     })
     .catch((error) => {
       console.error("오류 발생:", error);
-    });
+    }
+    );
 
-  // 내가 팔로우 한 사람들의 수 가져오기
+
+
+    // 내가 팔로우 한 사람들의 수 가져오기
   fetch("/follow/followFromCount/" + targetMemberId)
     .then((response) => response.json())
     .then((count) => {
-      const countFollowFrom = document.getElementById("count-follow-from");
-      countFollowFrom.textContent = `팔로우 : ${count}`;
-      console.log(count);
+        const countFollowFrom = document.getElementById("count-follow-from");
+        countFollowFrom.innerHTML = `<a href="javascript:void(0);" style="text-decoration: none; color: inherit;">팔로우 : ${count}</a>`;
+        countFollowFrom.style.cursor = "pointer";
+        countFollowFrom.onclick = async function () {
+            // 내가 팔로우 한 사람들 리스트
+            try {
+               
+                const response = await fetch("/follow/followfrom/" + targetMemberId);
+                const username = await response.json();
+
+                const popupContent = username.map((username) => `<p>${username}</p>`).join('');
+
+
+                const popupLayer = document.querySelector('.popup_layer');
+                const popupDimmed = document.querySelector('.popup_dimmed');
+                const textArea = document.querySelector('.text_area');
+
+                textArea.innerHTML = popupContent;
+                popupLayer.style.display = 'block';
+                popupDimmed.style.display = 'block';
+            } catch (error) {
+                console.error("오류 발생:", error);
+            }
+
+        };
+
     })
     .catch((error) => {
       console.error("오류 발생:", error);
     });
 }
+
+    function closePopup(){
+        const popupLayer = document.querySelector('.popup_layer');
+        const popupDimmed = document.querySelector('.popup_dimmed');
+        popupLayer.style.display = 'none';
+        popupDimmed.style.display = 'none';
+
+    }
 
 // 전유영 수정 끝
 

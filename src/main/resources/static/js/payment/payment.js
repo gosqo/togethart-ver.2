@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       const urlParams = new URLSearchParams(window.location.search);
       const target = urlParams.get("target");      
       var month;
+     
 
       notMyself(memberId, target);
        async function notMyself(memberId, target){

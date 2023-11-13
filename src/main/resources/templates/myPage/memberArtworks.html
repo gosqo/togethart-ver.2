@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/popup.css}">
 	<title>TogethArt</title>
 </head>
 
@@ -19,6 +20,8 @@
 
 		<!--메뉴바-->
 		<div id="myPageMenuBar" th:replace="~{myPageMenuBar :: myPageMenuBar}"></div>
+
+		<div id="layerPopup" th:include="~{popup :: popup}"></div>
 
 		<!-- 메인 갤러리 -->
 		<div class="" style="width: 90%; margin-top: 1.8rem; margin-left: auto; margin-right: auto;">

@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const memberId = decodedJWT.memberId;
   var memberId2 = document.querySelector("#member-id").value;
-  console.log(memberId);
-  console.log(memberId2);
+
   const authRequest = { memberId: memberId };
 
   if (memberId == memberId2) {

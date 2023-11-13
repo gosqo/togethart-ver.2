@@ -6,13 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" th:href="@{/css/kim_bootstrap.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/css/add.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/popup.css}">
   <title>TogethArt</title>
   <script type="text/javascript" th:src="@{/js/subscription/sub3.js}"></script>
   <script type="text/javascript" th:src="@{/js/subscription/sub4.js}"></script>
 </head>
 
 <body>
+
+
   <div class="wrap-body">
+
     <!--부모 div-->
     <div id="nav-wrapper" th:replace="~{nav :: nav}"></div>
 
@@ -20,6 +24,8 @@
     <div id="myPageBanner" th:replace="~{myPageBanner :: myPageBanner}"></div>
     <!--메뉴바-->
     <div id="myPageMenuBar" th:replace="~{myPageMenuBar :: myPageMenuBar}"></div>
+
+    <div id="layerPopup" th:include="~{popup :: popup}"></div>
 
     <nav id="subbar" class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
       <div class="container-fluid">

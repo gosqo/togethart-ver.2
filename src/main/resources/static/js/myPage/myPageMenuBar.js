@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   const memberId = decodedJWT.memberId;
-  console.log(memberId);
 
   document.querySelector(
     "#menu-member-home"

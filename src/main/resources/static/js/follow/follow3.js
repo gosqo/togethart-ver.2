@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var isFollowing = false;
     var followFrom = decodedJWT.memberId; // 나
     var followTo = document.querySelector("#member-id").value; // 대상
-    console.log(followFrom);
-    console.log(followTo);
+
+
 
     updateFollowButton();
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function updateFollowButton() {
-      console.log(followFrom);
+
       // 1013 전유영
       if (followFrom == followTo) {
         followButton.style.display = "none";
