@@ -79,13 +79,10 @@ if (sessionStorage.jwtToken) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data + ' the result of GET request hasLike() from likeButtonValue().');
         if (parseInt(data) === 0) {
           buttonValueLike();
-          console.log('the member has no like on the artwork. from likeButtonValue().')
         } else {
           buttonValueUnlike();
-          console.log('the member has a like on the artwork. from likeButtonValue().')
         }
       })
   }

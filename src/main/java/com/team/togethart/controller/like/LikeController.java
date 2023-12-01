@@ -47,13 +47,6 @@ public class LikeController {
         likeRequest.setArtworkId(artworkId);
         likeRequest.setMemberId(memberId);
 
-//        Map<String, Integer> map = new HashMap<String, Integer>();
-//
-//        if (likeService.findLike(likeRequest) == 0) {
-//            map.put("hasLike", 0);
-//        } else if (likeService.findLike(likeRequest) == 1) {
-//            map.put("hasLike", 1);
-//        }
         // 결과 0 이면 좋아요 기능 작동 가능
         // 결과 1 이면 좋아요 취고 시능 작동 가능을 알림.
         return likeService.findLike(likeRequest) == 0

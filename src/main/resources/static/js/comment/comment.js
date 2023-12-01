@@ -50,13 +50,9 @@ if (sessionStorage.jwtToken) {
 
   // 댓글 작성 POST
   async function postFormDataAsJson({ url, formData }) {
-    console.log('postFormDataAsJson is called.');
     const plainFormData = Object.fromEntries(formData.entries());
-    console.log(plainFormData + ' is an object named plainFormData.');
-    // console.log(commentUsername + ' is a memberUsername from token.');
 
     const commentContent = plainFormData.commentContent;
-    console.log(commentContent + ' is a commentContent.');
 
     const customBody = {
       "artworkId": `${artworkId}`,
@@ -64,9 +60,6 @@ if (sessionStorage.jwtToken) {
       "memberUsername": `${commentUsername}`,
       "commentContent": `${commentContent}`
     };
-
-
-    console.log(JSON.stringify(customBody) + ' is the customBody');
 
     const fetchOptions = {
       method: 'POST',
@@ -85,18 +78,15 @@ if (sessionStorage.jwtToken) {
           } else {
             alert('댓글 작성을 실패했습니다. 문제가 계속되면 관리자에게 알려주십시오.')
           }
-          response.text();
-          console.log(response);
-          console.log(response.status);
         })
         .then(() => {
-          // getCommentList();
           window.location.reload();
         });
     } else {
       alert('댓글 내용을 작성해주세요.')
     }
-  } // 댓글 작성 끝
+  } 
+  // 댓글 작성 끝
 
 
 } else {
