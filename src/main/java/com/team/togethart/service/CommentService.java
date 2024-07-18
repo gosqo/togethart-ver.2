@@ -48,4 +48,7 @@ public class CommentService {
         return commentMapper.deleteComment(commentId);
     }
 
+    public CommentViewResponse getComment(Long commentId) {
+        return commentMapper.selectComment(commentId);
+    }
 }

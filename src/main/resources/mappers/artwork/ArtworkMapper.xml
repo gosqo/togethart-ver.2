@@ -25,6 +25,13 @@
          WHERE a.artwork_id = #{artworkId}
     </select>
 
+    <update id="updateArtwork" parameterType="com.team.togethart.dto.artwork.ArtworkUpdateRequest">
+        UPDATE togetharttest.artwork
+           SET artwork_title = #{artworkTitle},
+               artwork_description = #{artworkDescription}
+         WHERE artwork_id = #{artworkId}
+    </update>
+
     <update id="updateViewCount">
         UPDATE togetharttest.artwork
            SET view_count = view_count + 1

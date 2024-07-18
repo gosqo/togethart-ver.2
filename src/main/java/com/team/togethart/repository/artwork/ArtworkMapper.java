@@ -1,6 +1,7 @@
 package com.team.togethart.repository.artwork;
 
 import com.team.togethart.dto.artwork.ArtworkDeleteRequest;
+import com.team.togethart.dto.artwork.ArtworkUpdateRequest;
 import com.team.togethart.dto.artwork.ArtworkViewResponse;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ArtworkMapper {
 
     ArtworkViewResponse selectArtwork(Long artworkId);
+    int updateArtwork(ArtworkUpdateRequest artworkUpdateRequest);
 
     void updateViewCount(Long artworkId);
 

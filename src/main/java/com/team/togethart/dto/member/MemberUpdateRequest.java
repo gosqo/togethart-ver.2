@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Component
+
 public class MemberUpdateRequest {
     private String memberEmail;
-    private String memberPwd;
-    private String memberBirth;
     private String memberImage;
     private String memberIntro;
+
 }

@@ -1,8 +1,7 @@
 let isContentLoadedHandled = false;
-// DOMContentLoaded 이벤트 핸들러를 페이지 최상단에서 등록
-document.addEventListener("DOMContentLoaded", async function () {
-  // 이미 처리된 경우 다시 실행하지 않음
 
+document.addEventListener("DOMContentLoaded", async function () {
+  
   if (isContentLoadedHandled) {
     return;
   }
@@ -32,8 +31,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   );
 
   const memberId = decodedJWT.memberId;
-  console.log(memberId);
-
+ 
+  
   // memberId를 사용하여 동적 URL 생성
   const subsInfoUrl = `/sub/member/subs-info?memberId=${memberId}`;
 
@@ -42,9 +41,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (response.status === 200) {
       const data = await response.json();
+      
 
       for (const item of data) {
         if (item.memberUsername && item.startDate && item.expireDate) {
+          
           const row = document.createElement("tr");
           const usernameCell = document.createElement("th");
           const startDateCell = document.createElement("td");
@@ -55,11 +56,14 @@ document.addEventListener("DOMContentLoaded", async function () {
           usernameCell.textContent = item.memberUsername;
           startDateCell.textContent = item.startDate.replace("T", " ");
           endDateCell.textContent = item.expireDate.replace("T", " ");
+          
 
           // 구독 만료 여부 확인을 위한 요청
           const isExpiredResponse = await fetch(
             `/sub/member/${memberId}/subs-info/${item.memberId}/IsSubscriptionExpired`
           );
+          
+          
           if (isExpiredResponse.status === 200) {
             const { isSubscriptionExpired } = await isExpiredResponse.json();
             if (isSubscriptionExpired) {
@@ -67,57 +71,31 @@ document.addEventListener("DOMContentLoaded", async function () {
               expiredBtn.textContent = "구독 만료 !";
 
               expiredBtn.addEventListener("click", async function () {
-                const response = await fetch("/sub/resub", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
+                const isresub = "true";
+                sessionStorage.setItem("isresub", isresub);
+                sessionStorage.setItem("memberId", memberId);
+                const url = `/resub?target=${item.memberId}`;
+                window.location.href = url;
 
-                  body: JSON.stringify({
-                    subscribeFrom: memberId,
-                    subscribeTo: item.memberId,
-                  }),
-                });
-
-                if (response.status === 200) {
-                  alert("구독을 재시작했습니다.");
-                  location.reload();
-                } else {
-                  alert("구독 재시작에 실패했습니다.");
-                }
               });
 
               extendCell.appendChild(expiredBtn);
             } else {
-              // 구독 연장 버튼
+             
               const extendBtn = document.createElement("button");
               extendBtn.textContent = "구독 연장";
               extendBtn.addEventListener("click", async function () {
-                // "구독 연장" 버튼을 클릭했을 때 서버로 요청을 보냅니다.
-                try {
-                  const response = await fetch("/sub/extend", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      subscribeFrom: memberId,
-                      subscribeTo: item.memberId,
-                    }),
-                  });
+                const isresub = "false";
+                sessionStorage.setItem("isresub", isresub);
+                sessionStorage.setItem("memberId", memberId);
+                const url = `/payment?target=${item.memberId}`;
+                
+                window.location.href = url;
 
-                  if (response.status === 200) {
-                    alert("구독 기간을 연장했습니다.");
-                    location.reload();
-                  } else {
-                    console.error("요청 실패: " + response.status);
-                  }
-                } catch (error) {
-                  console.error("오류 발생: " + error.message);
-                }
+                
               });
 
-              extendCell.appendChild(extendBtn);
+               extendCell.appendChild(extendBtn);
             }
           }
 
@@ -178,4 +156,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (error) {
     console.error("오류 발생: " + error.message);
   }
+
+  
 });

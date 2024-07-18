@@ -1,14 +1,17 @@
 package com.team.togethart.controller;
 
 import com.team.togethart.dto.artwork.ArtworkViewResponse;
+import com.team.togethart.dto.kakaoPay.KakaoApproveResponse;
 import com.team.togethart.dto.myPage.MyPageMemberInfoResponse;
 import com.team.togethart.service.ArtworkService;
+//import com.team.togethart.service.KakaoPayService;
 import com.team.togethart.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ViewController {
@@ -18,6 +21,9 @@ public class ViewController {
 
     @Autowired
     MyPageService myPageService;
+
+//    @Autowired
+//    KakaoPayService kakaoPayService;
 
 //    @GetMapping("/")
 //    public String index() {
@@ -63,7 +69,8 @@ public class ViewController {
 
 //     ("/artwork/{artworkId}") 로 요청 들어오면?
     @GetMapping("/artwork/{artworkId}")
-    public String artworkView(@PathVariable("artworkId") Long artworkId, Model model) {
+    public String artworkView(
+            @PathVariable("artworkId") Long artworkId, Model model) {
 
             // artworkId 를 통해 DB table 'artwork' 에서 해당 레코드 가져오기.?
         ArtworkViewResponse artworkViewResponse = artworkService.findArtwork(artworkId);
@@ -71,6 +78,16 @@ public class ViewController {
 
         return "artwork/artworkView";
 
+    }
+
+    @GetMapping("/artwork/{artworkId}/modify")
+    public String artworkModify(
+            @PathVariable("artworkId") Long artworkId, Model model) {
+
+        ArtworkViewResponse artworkViewResponse = artworkService.findArtwork(artworkId);
+        model.addAttribute("artwork", artworkViewResponse);
+
+        return "artwork/modifyArtwork";
     }
 
     // 마이 페이지
@@ -111,7 +128,7 @@ public class ViewController {
     }
 
     @GetMapping("member/{memberId}/subs-infoWhole")
-    public String memberSubsInfo(
+            public String memberSubsInfo(
             @PathVariable("memberId") Long memberId,
                                  Model model) {
         MyPageMemberInfoResponse response = myPageService.getMyPageMemberInfo(memberId);
@@ -159,4 +176,19 @@ public class ViewController {
         return "searchResult";
     }
 
-}
+    @GetMapping("/payment")
+    public String payment() { return "payment/payment";}
+
+    @GetMapping("/resub")
+    public String resub() { return "payment/resub";}
+
+//    @GetMapping("/payment/success")
+//    public void displayPaymentSuccess(@RequestParam("pg_token") String pgToken, Model model, HttpSession httpSession) {
+//       model.addAttribute("info", kakaoPayService.ApproveResponse(pgToken,httpSession));
+//
+//    }
+
+
+    }
+
+

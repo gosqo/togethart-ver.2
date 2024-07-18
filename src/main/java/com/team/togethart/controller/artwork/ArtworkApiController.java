@@ -1,6 +1,7 @@
 package com.team.togethart.controller.artwork;
 
 import com.team.togethart.dto.artwork.ArtworkDeleteRequest;
+import com.team.togethart.dto.artwork.ArtworkUpdateRequest;
 import com.team.togethart.service.ArtworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,24 @@ public class ArtworkApiController {
     @Autowired
     private ArtworkService artworkService;
 
-    @GetMapping("api/artwork/{artworkId}")
-    public ResponseEntity<Object> artworkDetail(
-            @PathVariable("artworkId") Long artworkId) {
+//    @GetMapping("/api/artwork/{artworkId}")
+//    public ResponseEntity<Object> artworkDetail(
+//            @PathVariable("artworkId") Long artworkId) {
+//        return ResponseEntity.status(200).body(artworkService.findArtwork(artworkId));
+//    }
 
+    @PatchMapping("/artwork/{artworkId}")
+    public ResponseEntity<Object> artworkModify(
+            @PathVariable("artworkId") Long artworkId,
+            @RequestBody ArtworkUpdateRequest artworkUpdateRequest) {
 
-        return ResponseEntity.status(200).body(artworkService.findArtwork(artworkId));
+        artworkUpdateRequest.setArtworkId(artworkId);
+
+        int updateCount = artworkService.modifyArtwork(artworkUpdateRequest);
+
+        return updateCount == 1
+                ? ResponseEntity.status(200).body("Artwork been modified.")
+                : ResponseEntity.status(400).body("Bad Request.");
     }
 
     @PostMapping("/deleteArtwork")

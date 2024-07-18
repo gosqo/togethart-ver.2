@@ -34,6 +34,14 @@
          ORDER BY c.c_upload_date ASC
     </select>
 
+    <select id="selectComment" parameterType="java.lang.Long" resultType="com.team.togethart.dto.comment.CommentViewResponse">
+        SELECT c.comment_id, c.member_id, c.member_username, c.c_upload_date, c.comment_content, m.member_image
+          FROM togetharttest.comment c
+         INNER JOIN togetharttest.member m
+            ON c.member_id = m.member_id
+         WHERE c.comment_id = #{commentId}
+    </select>
+
     <update id="updateComment" parameterType="com.team.togethart.dto.comment.CommentUpdateRequest">
         UPDATE togetharttest.comment
            SET comment_content = #{commentContent},

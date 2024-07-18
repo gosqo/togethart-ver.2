@@ -19,4 +19,5 @@ public interface CommentMapper {
 
     int deleteComment(Long commentId);
 
+    CommentViewResponse selectComment(Long commentId);
 }
