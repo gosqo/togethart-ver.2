@@ -264,30 +264,30 @@ function loadOriginalComment(event) {
   targetRightSide.appendChild(modifyCancelButton);
 
   const commentModifyFetchButton = document.querySelector(`#modifyFetchButton${commentId}`);
-  commentModifyFetchButton.addEventListener('click', () => {
+  commentModifyFetchButton.addEventListener('click', handleModifyFetch(/*{event, commentId, modifiedCommentContent}*/));
 
-    try {
-      const formData = new FormData(form);
-      handleModifyFetch({ event, commentId, formData })
+    // try {
+    //   const formData = new FormData(form);
+    //   handleModifyFetch({ event, commentId, formData })
 
-    } catch {
-      alert('something went wrong...');
-      console.error(error);
-    }
-  });
+    // } catch {
+    //   alert('something went wrong...');
+    //   console.error(error);
+    // }
+  // });
 
-  modifyCancelButton.addEventListener('click', () => {
-    handleModifyCancel(event)
-  });
+  modifyCancelButton.addEventListener('click', /*() => {*/
+    handleModifyCancel(/*event*/)
+  /*}*/);
 
 }
 
-function handleModifyFetch({ event, commentId, formData }) {
-  event.preventDefault();
+function handleModifyFetch(/*{ event,*/ commentId/*, formData }*/) {
+  // event.preventDefault();
 
-  const plainFormData = Object.fromEntries(formData.entries());
+  // const plainFormData = Object.fromEntries(formData.entries());
 
-  const modifiedCommentContent = plainFormData.commentContent;
+  // const modifiedCommentContent = plainFormData.commentContent;
 
   console.log(event);
   console.log(modifiedCommentContent);
@@ -316,9 +316,9 @@ function handleModifyFetch({ event, commentId, formData }) {
     .catch((e) => console.error(e));
 }
 
-function handleModifyCancel(event) {
-  const confirmation = confirm('댓글 수정을 취소하시겠습니까? 수정 중인 내용을 저장하지 않습니다.');
+function handleModifyCancel(/*event*/) {
   console.log(event);
+  const confirmation = confirm('댓글 수정을 취소하시겠습니까? 수정 중인 내용을 저장하지 않습니다.');
   if (confirmation) {
     window.location.reload();
   }
